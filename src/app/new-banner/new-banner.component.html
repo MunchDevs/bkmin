@@ -1,0 +1,43 @@
+<div class="form-container">
+    <div class="form-control">
+        <div class="form-title">
+            New Banner
+        </div>
+    </div>
+
+    <div class="form-control">
+        <div class="upload-section">
+            <input type="file" (change)="fileChangeEvent($event)" />
+            <image-cropper *ngIf="cropping" [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true"
+                [aspectRatio]="4 / 3" format="png" (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
+                [resizeToWidth]="320" (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()">
+            </image-cropper>
+        </div>
+    </div>
+
+
+    <form class="forms-section" [formGroup]="foodForm">
+        <div class="form-control">
+            <mat-form-field class="example-full-width">
+                <mat-label>Heading 1</mat-label>
+                <input matInput placeholder="Heading1" formControlName="heading1">
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+                <mat-label>Heading2</mat-label>
+                <input matInput placeholder="Heading2" formControlName="heading2">
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+                <mat-label>Heading3</mat-label>
+                <input matInput placeholder="Heading3" formControlName="heading3">
+            </mat-form-field>
+
+        </div>
+        <div class="form-control">
+            <button mat-raised-button [disabled]="foodForm.invalid || !cropping" (click)="submit()">Save</button>
+        </div>
+
+
+    </form>
+</div>

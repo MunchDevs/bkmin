@@ -1,0 +1,64 @@
+
+<mat-sidenav-container  class="layout-container" [hasBackdrop]="hasBackdrop">
+   
+
+    <!-- sidenav -->
+    <mat-sidenav #sidenav [mode]="sidenav_mode" [opened] = "side_nav_opened" class="mat-elevation-z1" [disableClose]="!on_mobile_view">
+        <div class="sidenav-top">
+            <div *ngIf="on_mobile_view" class="sidenav-close">
+                <mat-icon (click)="sidenav.toggle()">close</mat-icon>
+            </div>
+            <img class="sidebar-logo" src="../../assets/logos/pamugoti_logo.jpeg">
+        </div>
+        <div class="sidenav-bottom">
+
+            <app-sidebar (nav_selected)="on_mobile_view? sidenav.toggle():false"></app-sidebar>
+        </div>
+    </mat-sidenav>
+    
+
+
+    <!-- main content -->
+    <mat-sidenav-content>
+
+        <mat-toolbar>
+            <button *ngIf="on_mobile_view && !search_mode" mat-icon-button (click)="sidenav.toggle()">
+             <mat-icon>menu</mat-icon>
+            </button>
+
+            <!-- <div class="toolbar-title">My App</div> -->
+            
+              <mat-form-field *ngIf="search_mode" floatLabel='never' style="flex: 1 1 auto;" class="full-width">
+                <!-- <mat-label>Favorite food</mat-label> -->
+                <input  matInput placeholder="Search" (keyup)="filter($event)" >
+                <span matPrefix>
+                    <mat-icon (click)="search_mode = false" inline="true">arrow_back</mat-icon>
+                </span>
+                <span matSuffix>
+                    <mat-icon inline="true">close</mat-icon>
+                </span>
+              </mat-form-field>
+
+              <div *ngIf="!search_mode " class="toolbar-title" style="flex: 1 1 auto;">My App</div>
+
+       
+               <mat-icon  *ngIf="on_searchable_page && !search_mode" (click)="search_mode = true">search</mat-icon>
+               &nbsp;
+           
+                <mat-icon  *ngIf="!search_mode" mat-button [matMenuTriggerFor]="menu">more_vert</mat-icon>
+           
+            <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="logout()">Logout</button>
+        
+            </mat-menu>
+
+        </mat-toolbar>
+
+         <router-outlet></router-outlet>
+
+    </mat-sidenav-content>
+
+
+
+
+  </mat-sidenav-container>

@@ -1,0 +1,71 @@
+<mat-tab-group *ngIf="requests" (selectedIndexChange)="switchDataSource($event)" mat-align-tabs="center">
+    <mat-tab label="New">
+
+    </mat-tab>
+    <mat-tab label="Ongoing">
+  
+    </mat-tab>
+    <mat-tab label="Past">
+     
+    </mat-tab>
+</mat-tab-group>
+
+<div class="requests-list">
+
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z0">
+
+        <ng-container matColumnDef="name">
+      
+          <td mat-cell *matCellDef="let request">
+            <div class="order">
+                <div class="order-header" (click)="viewDetails(request.id)">
+                    <div class="order-header-left">
+                        <div class="order-avatar">
+                            <img class="avatar-small" src="../../../assets/svg-icons/031-soup.svg">
+                        </div>
+                    </div>
+                    <div class="order-header-center">
+                        <div class="order-client-name">
+                           {{request.customer_name}}
+                        </div>
+                        <div class="order-date">
+                            {{request.timestamp * 1000 | date }}
+                        </div>
+                        
+                    </div>
+                    <div class="order-header-right">
+                        <div class="order-id">
+                            {{request.invoice_no}}
+                        </div>
+                        <div class="order-total">
+                            {{request.total | currency}}
+                        </div>
+                    </div>
+        
+                </div>
+                <div class="order-content">
+                    <div class="order-instructions">
+                        Order Type : {{request.request_type}}
+        
+                     </div>
+                </div>
+         
+            </div>
+        </td>
+        </ng-container>
+      
+   
+ 
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      
+      
+</div>
+
+<div class="add-fab-section">
+    <mat-paginator [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" #paginator="matPaginator"
+    showFirstLastButtons (page)="pageEvent = $event">
+    </mat-paginator>
+  </div>
+
+

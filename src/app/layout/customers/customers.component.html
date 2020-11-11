@@ -1,0 +1,39 @@
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z0">
+
+   
+  
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+
+      <div class="user-item" mat-cell *matCellDef="let element"> 
+         <div class="user-item-avatar">
+             <img class="avatar" src="../../../assets/fpo_avatar.png">
+         </div>
+         <div class="user-item-details">
+            <div class="user-item-name">
+                {{element.name}} 
+             </div>
+             <div class="user-item-contact">
+                <div>
+                    <mat-icon inline="true">call</mat-icon>
+                    {{element.phone}}
+                </div>
+                <div>
+                    <mat-icon inline="true">email</mat-icon>
+                    {{element.email}}
+                </div>
+             </div>
+             <div class="user-item-actions">
+
+            </div>
+         </div>
+       
+      </div>
+    </ng-container>
+  
+  
+
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  
+  

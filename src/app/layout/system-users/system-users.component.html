@@ -1,0 +1,76 @@
+ <h2 class="section-header">Invited Users</h2>
+ <table mat-table [dataSource]="invitaitions_dataSource" class="mat-elevation-z0">
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+        <div class="user-item" mat-cell *matCellDef="let element"> 
+            <div class="user-item-avatar">
+                <img class="avatar" src="../../../assets/fpo_avatar.png">
+            </div>
+            <div class="user-item-details">
+               <div class="user-item-name">
+                   {{element.email}} 
+                </div>
+                <div class="user-item-contact">
+                   <div>
+                       <!-- <mat-icon inline="true">user</mat-icon> -->
+                     <em>Awaiting to sign in</em> 
+                   </div>
+                  
+                </div>
+             
+            </div>
+            <div class="user-item-actions">
+                <div class="user-action-action">Set As Admin &nbsp; <mat-checkbox [checked]="element.super_admin" (change)="toggleAdminRole($event.checked,element.id,'invitation')" ></mat-checkbox> &nbsp; </div>
+                <div class="user-action-action"  style="margin-bottom: 0px;">Remove  <mat-icon (click)="removeInvitation(element.id,element.email,'invitation')" >delete</mat-icon></div>
+            </div>
+         </div>
+    </ng-container>
+  
+
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+<h2 class="section-header">Operating Users</h2>
+ <table mat-table [dataSource]="dataSource" class="mat-elevation-z0">
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+        <div class="user-item" mat-cell *matCellDef="let element"> 
+            <div class="user-item-avatar">
+                <img class="avatar" src="../../../assets/fpo_avatar.png">
+            </div>
+            <div class="user-item-details">
+               <div class="user-item-name">
+                   {{element.name}} 
+                </div>
+                <div class="user-item-contact">
+                   <div>
+                       <mat-icon inline="true">call</mat-icon>
+                       {{element.phone}}
+                   </div>
+                   <div>
+                       <mat-icon inline="true">email</mat-icon>
+                       {{element.email}}
+                   </div>
+                </div>
+             
+            </div>
+            <div class="user-item-actions">
+                <div class="user-action-action">Set As Admin &nbsp; <mat-checkbox [checked]="element.super_admin" (change)="toggleAdminRole($event.checked,element.id,'admin')"></mat-checkbox> &nbsp; </div>
+                <div class="user-action-action" (click)="removeInvitation(element.id,element.name,'admin')" style="margin-bottom: 0px;">Remove  <mat-icon>delete</mat-icon></div>
+
+            </div>
+         </div>
+    </ng-container>
+  
+
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <div class="add-fab-section">
+    <button mat-fab color="accent" (click)="openDialog()">
+        <mat-icon>plus_one</mat-icon>
+      </button>
+
+  </div>
+  
+  

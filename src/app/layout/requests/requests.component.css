@@ -1,0 +1,59 @@
+.requests-list{
+    /* border: 2px solid teal; */
+    height: calc( 100vh - 112px);
+    overflow-y: scroll;
+}
+.order{
+    border: 1px solid crimson;
+    /* height: 56px; */
+}
+.order-header{
+    display: flex;
+    border: 1px solid yellowgreen;
+    width: 100%;
+}
+.order-header-left{
+    
+}
+.order-header-center{
+    flex-grow: 1;
+    border: 1px solid lightcoral;
+}
+.order-header-right{
+
+}
+.order-content{
+    border: 1px solid rebeccapurple;
+    height: 44px;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+}
+.order-footer{
+    border: 1px solid crimson;
+    height: 36px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.order-item{
+   display: flex;
+   flex-grow: 1;
+   border: 1px solid fuchsia;
+}
+
+.order-instructions{
+    height: 36px;
+    border: 1px solid teal;
+}
+
+.order-item-name{
+   flex-grow: 2;
+}
+.order-item-qty{
+   flex-grow: 1;
+}
+.order-item-price{
+   flex-grow: 1;
+   text-align: end;
+}

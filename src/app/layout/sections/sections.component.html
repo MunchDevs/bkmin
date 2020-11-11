@@ -1,0 +1,34 @@
+<div class="page-title">
+   Mechant Sections
+</div>
+<div class="section-list" >
+    <div class="section-list-item" *ngFor="let section of sections ; index as i"  [routerLink]="['/menu']" routerLinkActive="router-link-active" (click)="viewProducts(i)">
+      <div class="section-avatar-container">
+        <div class="section-avatar">
+          <img class="avatar" [src] = "'../../../../../../assets/svg-icons/'+ section.icon_name +'.svg'" />
+        </div>
+      </div>
+      <div class="section-list-details" >
+        <div>
+          {{section.name}}
+        </div>
+        <div>
+          Taril
+        </div>
+  
+      </div>
+  
+      <div class="section-actions">
+        <div class="section-action-btn">
+          <mat-icon>delete</mat-icon>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="add-fab-section">
+    <button mat-fab color="accent" [routerLink]="['/newsection']" routerLinkActive="router-link-active"  >
+        <mat-icon>plus_one</mat-icon>
+      </button>
+
+  </div>

@@ -1,0 +1,48 @@
+<!-- <div class="image-edit-section">
+    <div  *ngIf="!imageCropping && !croppedimage" class="upload-section-image" (click)="fileInput1.click()">
+        <div class="upload-text">Upload image</div>
+    </div>
+
+    <img class="cropped-image"  [src]="croppedimage" *ngIf="!imageCropping && croppedimage" (click)="fileInput1.click()"/>
+
+    <input #fileInput1 type="file" style="display:none;" (change)="imageChangeEvent($event)" />
+    <div style="width:100%; height: 200px;"  *ngIf="imageCropping">
+        <image-cropper
+        [imageChangedEvent]="imageChangedEvent"
+        [maintainAspectRatio]="true"
+        [aspectRatio]="2 / 1"
+        [resizeToWidth]="256"
+        format="png"
+        (imageCropped)="imageCropped($event)"
+        (imageLoaded)="imageLoaded()"
+        (cropperReady)="cropperReady()"
+        (loadImageFailed)="loadImageFailed()"
+        >
+      </image-cropper>
+    </div>
+
+
+    <button mat-raised-button class="done-button" *ngIf="imageCropping" (click)="imageCropping=false">Done
+        <mat-icon>check</mat-icon>
+    </button>
+</div> -->
+
+<mat-form-field appearance="outline">
+    <mat-label>statuses</mat-label>
+    <mat-select>
+      <mat-option *ngFor="let icon of icons" [value]="icon.name">
+     <img class="section-select-icon" [src]="'../../../assets/svg-icons/'+ icon.image_url + '.svg'">   {{icon.name}} 
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+<mat-form-field class="field-width">
+    <mat-label>Section Name </mat-label>
+    
+    <input matInput placeholder="Section Name"  type="text"
+        min="1" >
+</mat-form-field>
+
+<div class="footer">
+<button mat-flat-button color="accent" style="width: 100%;">Save</button>
+</div>

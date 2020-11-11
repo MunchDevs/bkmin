@@ -1,1 +1,104 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~firebaseui/dist/firebaseui.css';
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.add-fab-section{
+    position: fixed;
+    border: 1px solid royalblue;
+    bottom: 12px;
+    right: 12px;
+}
+
+table {
+    width: 100%;
+}
+
+.user-item{
+    display: flex;
+    align-items: center;
+    margin: 4px 0px;
+    padding: 4px;
+    border-bottom: 1px solid #ddd;
+}
+.user-item-avatar{
+
+}
+
+
+
+.user-item-name{
+    font-weight: bold;
+}
+
+.avatar{
+    height: 56px;
+    width: 56px;
+    border-radius: 50%;
+ 
+    border: 1px solid #ddd;
+}
+.avatar-small{
+    height: 36px;
+    width: 36px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+}
+.user-item-details{
+    /* border: 1px solid fuchsia; */
+    flex-grow: 1;
+    margin-left: 4px;
+}
+.user-item-contact{
+  /* border: 1px solid grey; */
+  font-size: 0.7rem;
+}
+.user-item-actions{
+   /* border: 1px solid lawngreen; */
+
+}
+
+.user-action-action{
+    /* border: 1px solid gold; */
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+/* Mechant Details styles */
+
+.images-sections{
+    border: 1px solid green;
+    display: flex;
+}
+.upload-section-logo{
+    width: 200px;
+    height: 200px;
+    background-color: #ccc;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 2px;
+}
+
+.upload-section-banner{
+  
+    height: 150px;
+    width: 400px;
+    background-color: #ccc;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+    margin-left: 4px;
+  }
+
+  .bussiness-hours-item{
+    display:flex;
+    align-items: center;
+
+}
+  

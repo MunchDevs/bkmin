@@ -1,0 +1,36 @@
+<div class="page-title">
+    merchants
+</div>
+<div class="merchant-grid" *ngIf="merchants" >
+    <div class="merchant-grid-item" *ngFor="let merchant of merchants; index as i" [ngClass]="i%2? 'merchant-grid-right-item' : 'merchant-grid-left-item'"  >
+      <div class="merchant-avatar-container" >
+        <div class="merchant-avatar">
+          <img class="avatar" [src]="merchant.logo_url" />
+        </div>
+      </div>
+      <div class="merchant-grid-details"  (click)="viewSections(merchant.id)">
+        <div>
+          {{merchant.name}}
+        </div>
+        <div>
+          ttt
+        </div>
+  
+      </div>
+  
+      <div class="merchant-action">
+        <div class="merchant-action-btn">
+          <div (click)="viewEdit(merchant.id)">edit</div>
+          <div>closed open</div>
+          <ion-icon name="caret-back-circle-sharp"></ion-icon>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="add-fab-section">
+    <button mat-fab color="accent" [routerLink]="['/newmerchant']" routerLinkActive="router-link-active" >
+        <mat-icon>plus_one</mat-icon>
+      </button>
+  </div>
+

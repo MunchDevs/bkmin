@@ -1,0 +1,146 @@
+<div *ngIf="request" class="order-details-container" >
+    <div class="order-header">
+        <div class="order-header-left">
+            <div class="order-avatar">
+                avatar
+            </div>
+        </div>
+        <div class="order-header-center">
+            <div class="order-client-name">
+                {{request.customer_name}}
+            </div>
+            <div class="order-date">
+                {{request.timestamp * 1000 | date}}
+            </div>
+            
+        </div>
+        <div class="order-header-right">
+            <div class="order-id">
+                {{request.invoice_no}}
+            </div>
+           
+        </div>
+
+    </div>
+    <div class="order-customer-contacts">
+        <div class="customer-contact-item">
+            <div class="contact-item-icon">
+                <mat-icon>local_phone</mat-icon>
+            </div>
+            <div class="contact-item-details">
+                
+                {{request.customer_phone}}
+            </div>
+            <div class="contact-item-action">
+                <button mat-stroked-button>call</button>
+            </div>
+        </div>
+        <div class="customer-contact-item">
+            <div class="contact-item-icon">
+                <mat-icon>email</mat-icon>
+            </div>
+            <div class="contact-item-details">
+                {{request.customer_email}}
+            </div>
+            <div class="contact-item-action">
+                <button mat-stroked-button>email</button>
+            </div>
+        </div>
+        <div class="customer-contact-item" *ngIf="request.request_type === 'delivery'" >
+            <div class="contact-item-icon">
+                <mat-icon>location_on</mat-icon>
+            </div>
+            <div class="contact-item-details">
+                {{request.delivery_info.house_flat_number}}
+                {{request.delivery_info.suburb}}<br/>
+                {{request.delivery_info.instructions}}
+            </div>
+            <div class="contact-item-action">
+                <button mat-stroked-button>navigate</button>
+            </div>
+        </div>
+    </div>
+    <div class="order-items-header">
+        <span class="order-item-name">items</span>
+        <span class="order-item-qty">quantity</span>
+        <span class="order-item-price">price</span>
+    </div>
+    <div class="order-content">
+        <div class="order-item" *ngFor="let item of request.items">
+            <div class="order-item-name">{{item.name}} &nbsp; {{item.size}}</div>
+            <div class="order-item-qty">{{item.quantity}}</div>
+            <div class="order-item-price">{{item.item_total_price}}</div>
+        </div>
+     
+    </div>
+    <div class="order-instructions" >
+        <h2>{{request.request_type}}</h2>
+    </div>
+    <div class="order-totals">
+      <div class="order-totals-left">
+        <button mat-stroked-button>Share Via Whatsapp</button>
+
+      </div>
+      <div class="order-totals-right">
+
+          <div class="order-total-item">
+            <div class="total-item-label">SubTotal</div>
+            <div> : </div>
+            <div class="order-total-amount">{{request.sub_total | currency}}</div>
+          </div>
+
+          <div class="order-total-item">
+            <div class="total-item-label">Delivery Fee</div>
+            <div> : </div>
+            <div class="order-total-amount">{{request.delivery_fee | currency}}</div>
+          </div>
+
+          <div class="order-total-item">
+            <div class="total-item-label">Discount(0%)</div>
+            <div> : </div>
+            <div class="order-total-amount"></div>
+          </div>
+
+          <div class="order-total">
+              Total {{request.total | currency}}
+          </div>
+
+      </div>
+    </div>
+
+</div>
+
+<div *ngIf="request"  class="order-details-footer">
+    <div *ngIf="request.stage === 'created'" class="order-details-actions">
+        <button mat-flat-button color="warn" (click)="changeStatus('cancelled')">Cancel Order</button>
+        <button mat-flat-button color="primary" (click)="changeStatus('accepted')">Accept Order</button>
+    </div>
+
+    <div *ngIf="request.stage ==='accepted'"  class="order-details-actions" >
+        <div>Order Status</div>
+        <button mat-flat-button color="warn" (click)="selectDriver()">Assign Driver</button>
+        <button mat-flat-button color="warn">cancel order</button>
+    </div>
+
+    <div *ngIf="request.stage ==='driver_assigned'"  class="order-details-actions" >
+        <div>Order Status</div>
+        <button mat-flat-button color="warn" (click)="changeStatus('delivery_started')">Start Delivery</button>
+        <!-- <button mat-flat-button color="warn">cancel order</button> -->
+    </div>
+
+    <div *ngIf="request.stage ==='delivery_started'"  class="order-details-actions" >
+        <div>Order Status</div>
+        <button mat-flat-button color="warn" (click)="changeStatus('complete')">Complete Order</button>
+        <!-- <button mat-flat-button color="warn">cancel order</button> -->
+    </div>
+
+    <div *ngIf="request.stage === 'complete'" class="order-details-actions" >
+           Order status : Order delivered
+    </div>
+
+    <div *ngIf="request.stage === 'cancelled'" >
+           Order Cancelled by user
+    </div>
+  
+
+</div>

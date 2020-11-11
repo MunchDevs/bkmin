@@ -1,0 +1,73 @@
+.merchant-grid{
+    border: 1px solid gold;
+    display: flex;
+    flex-wrap: wrap;
+    }
+
+
+    
+    .merchant-avatar-container{
+        width: 75px;
+        border: 1px solid teal;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .merchant-avatar{
+        height: 62px;
+        width: 62px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid gray;
+    }
+
+    
+    
+    .avatar{
+        height: 52px;
+        width: 52px;
+        border-radius: 50%;
+        object-fit: contain;
+    
+    }
+    
+    .merchant-actions{
+        width: 56px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        border: 1px solid yellowgreen;
+    }
+    
+ 
+.merchant-grid-item{
+   
+    flex-basis: calc(50% - 8px);
+    height: 140px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 8px;
+ 
+ }
+ .merchant-grid-left-item{
+    border: 2px solid gold;
+    margin-right: 2px;
+ }
+
+ .merchant-grid-right-item{
+    border: 2px solid blue;
+    margin-left: 2px;
+    
+ }
+      
+ .merchant-grid-details{
+    border: 1px solid thistle;
+    width: 100%;
+    flex-grow: 1;
+    text-align: center;
+  }

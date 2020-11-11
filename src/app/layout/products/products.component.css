@@ -1,0 +1,38 @@
+
+.menu-list-item{
+    border: 1px solid fuchsia;
+    height: 70px;
+    display: flex;
+    margin:8px 0px;
+}
+
+.menu-avatar-container{
+    width: 75px;
+    border: 1px solid teal;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu-avatar{
+    height: 62px;
+    width: 62px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid gray;
+}
+
+.menu-list-details{
+    flex-grow: 1;
+}
+
+
+.avatar{
+    height: 52px;
+    width: 52px;
+    border-radius: 50%;
+    object-fit: contain;
+
+}

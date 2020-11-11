@@ -1,0 +1,54 @@
+.layout-container {
+    width: 100%;
+    height: 100vh;
+    /* border: 2px solid fuchsia; */
+  }
+
+.toolbar-title { 
+    display: flex;
+    justify-content: center;
+    flex: 1 1 auto;
+}
+
+mat-sidenav{
+  width: 200px;
+  /* border: 1px solid green; */
+  box-shadow: 1px 1px 1px #ccc
+}
+
+mat-sidenav-content{
+   /* width: calc(100vw - 200px); */
+   border: 1px solid gold;
+   max-height: 100vh;
+}
+
+.sidenav-top{
+   /* border: 1px solid khaki; */
+   height: 28vh;
+   position: relative;
+}
+.sidebar-logo{
+   width: calc(100% - 16px) ;
+   object-fit: cover;
+   margin: 8px;
+   margin-top: 16px;
+}
+
+.sidenav-close{
+   position: absolute;
+   right:4px;
+   top:4px;
+   display: flex;
+   border:1px solid gray;
+   justify-content: center;
+   align-items: center;
+   border-radius: 50%;
+   cursor: pointer;
+
+}
+
+.sidenav-bottom{
+   /* border: 1px solid coral; */
+   height:70vh
+}
+

@@ -1,0 +1,48 @@
+<mat-tab-group mat-align-tabs="center">
+    <mat-tab label="Promotions">
+        <div class="list-table-section">
+            <div style="display: flex;flex-direction: row-reverse;">
+                <app-new-banner (save)="closeNewForm()"></app-new-banner> 
+         
+                <div  style="height:70vh; overflow-y: scroll; width: 450px ">
+                    <div  class="food-category-item" *ngFor="let element of banners">
+                        <div class="food-category-item-top">
+                            <div class="food-category-image">
+                                <img class="item-avatar" [src]="element.img">
+                            </div>
+                            <div>
+                                <div class="food-category-name">
+                                    {{element.heading1}}
+                                </div>
+                                <div class="sizes-section">
+                                     {{element.heading2}}
+                                </div>
+                                <div class="sizes-section">
+                                    {{element.heading3}}
+                                </div>
+                            </div>
+                        </div>
+        
+        
+        
+                        <div class="food-category-actions">
+                            <mat-icon  *ngIf="pass.write"  (click)="confirmDeleteBannersDialog(element.id)">
+                                delete_outline
+                            </mat-icon>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+        </div>
+    </mat-tab>
+    <mat-tab label="Delivery">
+        
+        <h2>Delivery Charges</h2>
+        <h2>Delivery Outsourcing</h2>
+    </mat-tab>
+</mat-tab-group>
+
+
+
+

@@ -1,0 +1,39 @@
+.upload-section-logo{
+    width: 200px;
+    height: 200px;
+    background-color: #ccc;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 2px;
+}
+.image-edit-section{
+    width: 100%;
+    height: 200px;
+    background-color: #ccc;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 2px;
+}
+
+.cropped-image{
+    width: 100%;
+    height: 200px;
+}
+
+.field-width{
+    width: 100%;
+}
+
+.footer{
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+}
+.section-select-icon{
+    width: 24px;
+    height: 24px;
+}

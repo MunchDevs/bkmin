@@ -1,0 +1,32 @@
+I am more aware of zvisina kuitwa
+
+Done
+New dash board clean up
+Image compression and
+
+//
+Documentation
+admin code comments
+client app classes comments in Documentation
+
+flow charts
+
+App clean up
+left with promotions compartibility
+reverting the checkout page
+client app new image cache compartibility
+refixing styles
+
+moving maps to mapbox
+moving places autocomplete to native geocoder
+moving distance matrix to mapbox
+
+backend
+stopping old notifications
+
+deploying the new dashboard
+
+inga you are a go getter
+
+manje god works in unexpected ways ndaona watengerwawo yako
+ soon you realise it
