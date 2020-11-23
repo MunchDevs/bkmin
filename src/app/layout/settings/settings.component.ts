@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { FormBuilder, FormGroup } from '@angular/forms';
 // import { ConfirmDialogModel, ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { Tier } from 'src/app/models/models';
 
 
 @Component({
@@ -21,12 +23,18 @@ export class SettingsComponent implements OnInit {
     page:'Settings'
   }
   displayedBannerColumns: string[] = ['heading1'];
+  tiers: Tier;
+  extra_tier: any;
 
-  constructor( private db: AngularFirestore,public dialog: MatDialog ) { }
-
+  constructor(private fb:FormBuilder, private db: AngularFirestore,public dialog: MatDialog ) { }
+  charges_form:FormGroup
+  
+  
   ngOnInit(): void {
   
+  
   this.getBanners()
+  this.getDeliveryCharges()
   }
 
   getBanners() {
@@ -36,32 +44,22 @@ export class SettingsComponent implements OnInit {
         this.banners = x;
         console.log(this.banners)
       });
-}
-closeNewForm() {
-  // this.form_view = false;
-}
+  }
+
+  getDeliveryCharges(){
+    this.db.collection('charges').doc('delivery')
+    .valueChanges()
+    .subscribe((tiers:any)=>{
+      this.tiers = tiers.delivery
+      this.extra_tier =tiers.extra
+    })
+  }
+  closeNewForm() {
+    // this.form_view = false;
+  }
 
   deleteBanner(id) {
     this.db.doc(`banners/${id}`).delete();
-  } //Deleting Banners
-  // confirmDeleteBannersDialog(row): void {
-  //   const message = `Are you sure you want to delete this Addon?`;
-
-  //   const dialogData = new ConfirmDialogModel('Confirm Action', message);
-
-  //   const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-  //     maxWidth: '400px',
-  //     data: dialogData
-  //   });
-
-  //   dialogRef.afterClosed().subscribe(dialogResult => {
-  //     if (dialogResult) {
-  //       this.deleteBanner(row)
-  //       // this.notifier.show("success", "<b>Driver</b> - successfully selected.");
-  //     } else {
-  //       // this.notifier.notify("warning", "<b>Driver</b> - not selected.");
-  //     }
-  //   });
-  // }
+  } 
 
 }

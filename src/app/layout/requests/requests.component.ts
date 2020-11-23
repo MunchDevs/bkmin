@@ -12,10 +12,18 @@ import { SearchService } from 'src/app/search.service';
   styleUrls: ['./requests.component.css']
 })
 export class RequestsComponent implements OnInit {
-  requests = []//:Request[] = []
-  new_requests = []//:Request[] = []
-  ongoing_requests = []//:Request[] = []
-  past_requests = []//:Request[] = []
+  filter_start_date;
+  filter_end_date;
+
+  requests = []
+  new_requests = []
+  ongoing_requests = []
+  past_requests = []
+
+  new_requests_count = 0;
+  ongoing_requests_count = 0;
+  past_requests_count = 0;
+
   dataSource: MatTableDataSource<unknown>;
   pageSizeOptions: number[] = [];
   pageSizeCompletedOptions: number[] = [];
@@ -26,14 +34,25 @@ export class RequestsComponent implements OnInit {
   constructor(private search_service:SearchService,private router:Router,private db:AngularFirestore) { }
 
   ngOnInit(): void {
-    this.db.collection(`requests`, ref=> ref.orderBy('timestamp','desc')).valueChanges({idField:'id'})
+    let start_timestamp = new Date(new Date().setHours(0,0,0,0)).getTime() / 1000
+    let end_timestamp = (new Date(new Date().setHours(0,0,0,0)).getTime() / 1000) + 86400
+
+    this.db.collection(`requests`, ref=> ref.where('timestamp', '>=', start_timestamp)
+    .where('timestamp', '<=', end_timestamp)
+    .orderBy('timestamp','desc')).valueChanges({idField:'id'})
     .subscribe((x)=>{
       if(x){
         this.requests = x;
         this.new_requests = this.requests.filter(x => x.stage === 'created')
-        this.ongoing_requests = this.requests.filter(x => x.stage !== 'created' && x.stage !== 'complete' )
-        this.past_requests = this.requests.filter(x => x.stage === 'complete')
+        this.ongoing_requests = this.requests.filter(x => x.stage === 'accepted' || x.stage === 'driver_assigned' || x.stage === 'delivery_started'   )
+        this.past_requests = this.requests.filter(x => x.stage === 'complete' || x.stage === 'cancelled')
 
+        //counts
+        this.new_requests_count = this.new_requests.length;
+        this.ongoing_requests_count = this.ongoing_requests.length;
+        this.past_requests_count = this.past_requests.length;
+
+        console.log(this.ongoing_requests)
         this.dataSource = new MatTableDataSource(this.new_requests)
 
       }
@@ -51,6 +70,49 @@ export class RequestsComponent implements OnInit {
     })
   }
 
+
+
+  getDateRangeinputEvent($event){
+    console.log($event)
+  }
+
+  filterByDate(){
+     if(this.filter_start_date && this.filter_end_date){
+      let start_timestamp = new Date(this.filter_start_date).getTime() / 1000
+      let end_timestamp = (new Date(this.filter_end_date).getTime() / 1000) + 86400
+
+      this.db.collection(`requests`, ref=> ref.where('timestamp', '>=', start_timestamp)
+      .where('timestamp', '<=', end_timestamp)
+      .orderBy('timestamp','desc')).valueChanges({idField:'id'})
+      .subscribe((x)=>{
+        if(x){
+          this.requests = x;
+          this.new_requests = this.requests.filter(x => x.stage === 'created')
+          this.ongoing_requests = this.requests.filter(x => x.stage === 'accepted' || x.stage === 'driver_assigned' || x.stage === 'delivery_started'   )
+          this.past_requests = this.requests.filter(x => x.stage === 'complete')
+  
+          //counts
+          this.new_requests_count = this.new_requests.length;
+          this.ongoing_requests_count = this.ongoing_requests.length;
+          this.past_requests_count = this.past_requests.length;
+  
+          console.log(this.ongoing_requests)
+          this.dataSource = new MatTableDataSource(this.new_requests)
+  
+        }
+        console.log(this.requests)
+      })
+  
+
+
+     }else{
+       console.log('invalid range')
+     }
+
+  }
+
+
+
   viewDetails(request_id){
      this.router.navigateByUrl(`request/${request_id}`)
   }
@@ -64,6 +126,7 @@ export class RequestsComponent implements OnInit {
               break;
               case 1:
                  this.dataSource = new MatTableDataSource(this.ongoing_requests)
+                 break
               case 2:
                  this.dataSource = new MatTableDataSource(this.past_requests)
               break;
@@ -76,7 +139,17 @@ export class RequestsComponent implements OnInit {
             this.dataSource.paginator = this.paginator;
           }, 0);
   }
+startDateSelect($event){
+    console.log('start-date',$event.target.value)
+    this.filter_start_date = $event.target.value
+    this.filterByDate()
+  }
 
+  endDateSelect($event){
+    console.log('end-date',$event.target.value)
+    this.filter_end_date = $event.target.value
+    this.filterByDate()
+  }
   filter(filter_value) {
     console.log(`searching for:- ${filter_value}`);
     this.dataSource.filter = filter_value.trim().toLowerCase();

@@ -5,7 +5,7 @@ html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .add-fab-section{
     position: fixed;
-    border: 1px solid royalblue;
+    /* border: 1px solid royalblue; */
     bottom: 12px;
     right: 12px;
 }
@@ -20,12 +20,12 @@ table {
     margin: 4px 0px;
     padding: 4px;
     border-bottom: 1px solid #ddd;
-}
-.user-item-avatar{
-
+   
 }
 
-
+.example-full-width{
+    margin: 0px 4px ;
+}
 
 .user-item-name{
     font-weight: bold;
@@ -66,15 +66,15 @@ table {
     margin-bottom: 10px;
 }
 
-/* Mechant Details styles */
+/* MECHANT DETAILS */
 
 .images-sections{
     border: 1px solid green;
     display: flex;
 }
 .upload-section-logo{
-    width: 200px;
-    height: 200px;
+    width: 300px;
+    height: 300px;
     background-color: #ccc;
     display: flex;
     flex-direction: column;
@@ -100,5 +100,165 @@ table {
     display:flex;
     align-items: center;
 
-}
+  }
+  .page-action-header{
+    /* border: 1px solid red; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding: 0px 6px;
+    height: 56px;
+ }
+  .page-title{
+    font-size: 1.3rem;
+    font-weight: 500;
+    margin: 12px 0px;
+    max-height: 56px;
+  }
+
+  .forms-section{
+    /* border: 2px solid goldenrod; */
+    height: calc(100% - 114px);
+    overflow-y: scroll;
+  }
+
+
+  /* MENU DETAILS STYLE */
   
+
+  .upload-section-logo{
+    width: 300px;
+    height: 300px;
+    background-color: #ccc;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 2px;
+}
+.image-edit-section{
+    width: 300px;
+    height: 300px;
+    background-color: #ccc;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 2px;
+}
+
+.cropped-image{
+    width: 100%;
+    height: 200px;
+}
+
+.field-width{
+    width: 100%;
+}
+
+.footer{
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+}
+.menu-details-section{
+    border:1px solid #ddd;
+    display: flex;
+
+}
+
+
+.item-name-field{
+    font-size: 1.5rem;
+    width:100%
+}
+
+
+.addon-category-section{
+    /* border: 1px solid blueviolet; */
+}
+.addon-category-header{
+    background-color: #ddd;
+    display: flex;
+    align-items: center;
+    margin: 12px 0px;
+    padding: 6px;
+    height:56px;
+
+}
+
+.addons-section{
+    /* border: 1px solid lightcoral; */
+    display: flex;
+    margin-left: 12px;
+}
+.addon-item-section{
+    /* border: 1px solid crimson; */
+    width: 100%;
+    padding-right: 12px;
+}
+.addon-header{
+  background-color: #fff;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  height: 44px;
+  width: 100%; 
+}
+
+.name-field{
+    flex-grow: 1;
+    margin-right: 6px;
+    width: 100%;
+    font-weight: bold;
+}
+
+.category-field{
+    font-size: 1.1rem;
+}
+
+.input-field{
+    font-size: 0.9rem;
+    margin: 6px;
+}
+.size-price-item{
+    /* border: 1px solid crimson; */
+    display: flex;
+    align-items: flex-end;
+    height: 44px;
+}
+
+.addon-prices-section{
+    /* border: 3px solid green; */
+    display: flex;
+    margin-left: 16px;
+   flex-wrap: wrap;
+    align-items: center;
+    
+}
+.addon-size-price-item{
+    /* border: 1px solid crimson; */
+    display: flex;
+    align-items: flex-end;
+    height: 44px;
+}
+
+.size-price-field{
+    position: relative;
+    bottom: -10px;
+}
+
+.ico-btn{
+    display: flex;
+    align-items: center;
+}
+.preference-item-container{
+    display: flex;
+    align-items: center;
+}
+.preference-item{
+    display:flex;
+
+}
+

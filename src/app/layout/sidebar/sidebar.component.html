@@ -2,25 +2,33 @@
    
  
     <div class="nav-link" [routerLink]="['/dashboard']" routerLinkActive="router-link-active" (click)="onselect()">
-        Dashboard
+        <mat-icon class="nav-link-ico">bar_chart</mat-icon>
+        <div class="nav-link-label">Dashboard</div>     
     </div>
     <div class="nav-link" [routerLink]="['/requests']" routerLinkActive="router-link-active" (click)="onselect()">
-        Requests
+        <mat-icon class="nav-link-ico">shopping_basket</mat-icon>
+        <div class="nav-link-label"> Requests</div>
+       
     </div>
     <div class="nav-link" [routerLink]="['/merchants']" routerLinkActive="router-link-active" (click)="onselect()">
-        Merchants
+        <mat-icon class="nav-link-ico">store</mat-icon>     
+        <div class="nav-link-label">Merchants</div>  
     </div>
     <div class="nav-link" [routerLink]="['/customers']" routerLinkActive="router-link-active" (click)="onselect()">
-        Customers
+        <mat-icon class="nav-link-ico">people</mat-icon>     
+        <div class="nav-link-label">Customers</div>  
     </div>
     <div class="nav-link" [routerLink]="['/drivers']" routerLinkActive="router-link-active" (click)="onselect()">
-        Drivers
+        <mat-icon class="nav-link-ico">moped</mat-icon>     
+        <div class="nav-link-label">Drivers</div> 
     </div>
     <div class="nav-link" [routerLink]="['/settings']" routerLinkActive="router-link-active" (click)="onselect()">
-        Settings
+        <mat-icon class="nav-link-ico">settings</mat-icon> 
+        <div class="nav-link-label">Settings</div> 
     </div>
     <div class="nav-link" [routerLink]="['/system-users']" routerLinkActive="router-link-active" (click)="onselect()">
-        System Users
+        <mat-icon class="nav-link-ico">support_agent</mat-icon>
+        <div class="nav-link-label">System Users</div> 
     </div>
 
 </div>

@@ -5,14 +5,14 @@
 export const environment = {
   production: false, 
   firebase: {
-    apiKey: "AIzaSyBccy83FQj1NCTG63i1HFESCn35qf_u12A",
-    authDomain: "koini-8dc79.firebaseapp.com",
-    databaseURL: "https://koini-8dc79.firebaseio.com",
-    projectId: "koini-8dc79",
-    storageBucket: "koini-8dc79.appspot.com",
-    messagingSenderId: "899076090100",
-    appId: "1:899076090100:web:83a0e56c110df4b6c996a1",
-    measurementId: "G-GHGHF7NSKM"
+    apiKey: "AIzaSyAYeeP6CjONo_ieW1vJlzjUTUZ40pcOVoM",
+    authDomain: "bikedelivery-819a5.firebaseapp.com",
+    databaseURL: "https://bikedelivery-819a5.firebaseio.com",
+    projectId: "bikedelivery-819a5",
+    storageBucket: "bikedelivery-819a5.appspot.com",
+    messagingSenderId: "754117871965",
+    appId: "1:754117871965:web:74f8ce7b1f910b5e3880b4",
+    measurementId: "G-DFLKZ85BQ0"
   }
 };
 

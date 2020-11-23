@@ -25,7 +25,8 @@ export class NewDriverComponent implements OnInit {
      license_number:['',[Validators.required]],
      vehicle_reg:['',[Validators.required]],
      email:['',[Validators.required]],
-     active:[false]
+     active:[false],
+     occupied:[false]
    })
   }
 

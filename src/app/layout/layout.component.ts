@@ -4,6 +4,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { SearchService } from '../search.service';
+import { AuthService } from '../auth.service'
 
 @Component({
   selector: 'app-layout',
@@ -18,8 +19,8 @@ export class LayoutComponent implements OnInit {
   search_mode = false;
   on_searchable_page = false;
   searchable_target
-
-  constructor(private search_service:SearchService ,private router: Router,private afAuth:AngularFireAuth,private breakpointObserver: BreakpointObserver,mediaMatcher: MediaMatcher) { 
+  user
+  constructor(private auth_service:AuthService,private search_service:SearchService ,private router: Router,private afAuth:AngularFireAuth,private breakpointObserver: BreakpointObserver,mediaMatcher: MediaMatcher) { 
     const on_mobile_view = mediaMatcher.matchMedia('(max-width: 600px)').matches;
     this.toggleSideBarMode(on_mobile_view)
     // router.events.subscribe((url:any) => console.log(url));
@@ -40,11 +41,15 @@ export class LayoutComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.breakpointObserver.observe([
       Breakpoints.HandsetPortrait
     ]).subscribe(on_mobile_view => {
         this.toggleSideBarMode(on_mobile_view.matches)
     });
+    this.auth_service.current_user.subscribe(user=>{
+       this.user = user
+    })
   }
 
   filter(event){

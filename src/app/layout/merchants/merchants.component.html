@@ -1,27 +1,33 @@
-<div class="page-title">
-    merchants
+<div class="page-action-header">
+  <div class="page-title">
+     Merchants
+  </div>
+
+    
 </div>
 <div class="merchant-grid" *ngIf="merchants" >
     <div class="merchant-grid-item" *ngFor="let merchant of merchants; index as i" [ngClass]="i%2? 'merchant-grid-right-item' : 'merchant-grid-left-item'"  >
-      <div class="merchant-avatar-container" >
-        <div class="merchant-avatar">
+      <mat-icon class="edit-action" (click)="viewEdit(merchant.id)">edit</mat-icon>
+      <mat-slide-toggle class="close-action"></mat-slide-toggle>
+
+      <div class="merchant-avatar-container">
+        <div class="merchant-avatar" (click)="viewSections(merchant.id)">
           <img class="avatar" [src]="merchant.logo_url" />
         </div>
       </div>
       <div class="merchant-grid-details"  (click)="viewSections(merchant.id)">
-        <div>
+        <div class="merchant-title">
           {{merchant.name}}
         </div>
-        <div>
-          ttt
+        <div  class="merchant-address">
+           {{merchant.street_address}}
         </div>
   
       </div>
   
       <div class="merchant-action">
         <div class="merchant-action-btn">
-          <div (click)="viewEdit(merchant.id)">edit</div>
-          <div>closed open</div>
+        
           <ion-icon name="caret-back-circle-sharp"></ion-icon>
         </div>
       </div>

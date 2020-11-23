@@ -15,7 +15,7 @@ export class SystemUsersComponent implements OnInit {
   displayedColumns: string[] = ['name'];
   dataSource 
   invitaitions_dataSource: any;
-  
+  invitations_count = 0
   constructor(private search_service:SearchService,public dialog: MatDialog,private db:AngularFirestore) { }
 
   ngOnInit(): void {
@@ -25,6 +25,7 @@ export class SystemUsersComponent implements OnInit {
     })
     this.db.collection(`admin_invitations`).valueChanges({idField:'id'})
     .subscribe(invitations=>{
+      this.invitations_count = invitations.length
       this.invitaitions_dataSource = new MatTableDataSource(invitations)
     })
 

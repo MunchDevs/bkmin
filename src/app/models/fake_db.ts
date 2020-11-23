@@ -32,12 +32,12 @@ export class FakeDB{
         { name:'smoked',prices:this.prices}
     ]
 
-    products: Product[]= [
-        {  name: "sadza",image_url: '../../../../assets/products/sadza.jpg',available: true,addon_categories: this.addonCategories,preferences: this.preferences, prices: this.prices},
-        {  name: "pizza",image_url: '../../../../assets/products/pizza.jpg',available: true,addon_categories: this.addonCategories,preferences: this.preferences, prices: this.prices},
-        {   name: "chicken",image_url: '../../../../assets/products/chicken.jpg',available: true,addon_categories: this.addonCategories,preferences: this.preferences,prices: this.prices},
-        {   name: "beef",image_url: '../../../../assets/products/beef.jpg',available: true,addon_categories: this.addonCategories,preferences: this.preferences,prices: this.prices},
-     ]
+    // products: Product[]= [
+    //     {  name: "sadza",image_url: '../../../../assets/products/sadza.jpg',available: true,addon_categories: this.addonCategories,preferences: this.preferences, prices: this.prices},
+    //     {  name: "pizza",image_url: '../../../../assets/products/pizza.jpg',available: true,addon_categories: this.addonCategories,preferences: this.preferences, prices: this.prices},
+    //     {   name: "chicken",image_url: '../../../../assets/products/chicken.jpg',available: true,addon_categories: this.addonCategories,preferences: this.preferences,prices: this.prices},
+    //     {   name: "beef",image_url: '../../../../assets/products/beef.jpg',available: true,addon_categories: this.addonCategories,preferences: this.preferences,prices: this.prices},
+    //  ]
      
     sections:Section[]=[
         { name:'pizzas',icon_name:'009-pizza',products:[] },
@@ -47,12 +47,12 @@ export class FakeDB{
     ]
 
 
-    merchants:Merchant[]=[
-        {   id: '1',name: 'Galitos',contacts: '0778 800 900',logo_url: '../../../../assets/logos/galitos_logo.png',business_hrs: '',bussiness_hours:{opens:800,closes:1000}, categories: ['',''],location: '',motto: '',city: 'harare',tags: '',sections: this.sections,banner_url: '',street_address: '1 fife ave',open: true,distance: 1,est_delivery_time: 10,timestamp:1 ,cdn_delivery:false},
-        {   id: '2',name: 'Mc Donalds',contacts: '0778 800 901',logo_url: '../../../../assets/logos/mc_donalds_logo.png',business_hrs: '',bussiness_hours:{opens:930,closes:1630}, categories: ['',''],location: '',motto: '',city: 'harare',tags: '',sections: this.sections,banner_url: '',street_address: '2 ivernes close',open: true,distance: 1,est_delivery_time: 15,timestamp:2, cdn_delivery:false},
-        {   id: '3',name: 'Wimpy',contacts: '0778 800 902',logo_url: '../../../../assets/logos/wimpy_logo.gif',business_hrs: '',bussiness_hours:{opens:1300,closes:1645}, categories: ['',''],location: '',motto: '',city: 'harare',tags: '',sections: this.sections,banner_url: '',street_address: '3 fleming rd',open: true,distance: 1,est_delivery_time: 20,timestamp:3,cdn_delivery:false },
-        {   id: '4',name: 'Burger King',contacts: '0778 800 903',logo_url: '../../../../assets/logos/burger_king.png',business_hrs: '',bussiness_hours: {opens:1000,closes:1700}, categories: ['',''],location: '',motto: '',city: 'harare',tags: '',sections: this.sections,banner_url: '',street_address: '4 beins ave',open: true,distance: 1,est_delivery_time: 25,timestamp:4,cdn_delivery:false }
-    ]
+    // merchants:Merchant[]=[
+    //     {   id: '1',name: 'Galitos',contacts: '0778 800 900',logo_url: '../../../../assets/logos/galitos_logo.png',business_hrs: '',bussiness_hours:{opens:800,closes:1000}, categories: ['',''],location: '',motto: '',city: 'harare',tags: '',sections: this.sections,banner_url: '',street_address: '1 fife ave',open: true,distance: 1,est_delivery_time: 10,timestamp:1 ,cdn_delivery:false},
+    //     {   id: '2',name: 'Mc Donalds',contacts: '0778 800 901',logo_url: '../../../../assets/logos/mc_donalds_logo.png',business_hrs: '',bussiness_hours:{opens:930,closes:1630}, categories: ['',''],location: '',motto: '',city: 'harare',tags: '',sections: this.sections,banner_url: '',street_address: '2 ivernes close',open: true,distance: 1,est_delivery_time: 15,timestamp:2, cdn_delivery:false},
+    //     {   id: '3',name: 'Wimpy',contacts: '0778 800 902',logo_url: '../../../../assets/logos/wimpy_logo.gif',business_hrs: '',bussiness_hours:{opens:1300,closes:1645}, categories: ['',''],location: '',motto: '',city: 'harare',tags: '',sections: this.sections,banner_url: '',street_address: '3 fleming rd',open: true,distance: 1,est_delivery_time: 20,timestamp:3,cdn_delivery:false },
+    //     {   id: '4',name: 'Burger King',contacts: '0778 800 903',logo_url: '../../../../assets/logos/burger_king.png',business_hrs: '',bussiness_hours: {opens:1000,closes:1700}, categories: ['',''],location: '',motto: '',city: 'harare',tags: '',sections: this.sections,banner_url: '',street_address: '4 beins ave',open: true,distance: 1,est_delivery_time: 25,timestamp:4,cdn_delivery:false }
+    // ]
 
     // requests:Request[]=[
     //     {   invoice_no:'',

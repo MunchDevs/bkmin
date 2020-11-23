@@ -1,0 +1,15 @@
+.delivery-charges{
+}
+
+
+.delivery-charge{
+    display: flex;
+    flex-direction: row;
+}
+.delivery-charge>div{
+ width: 33.33%;
+ display: flex;
+justify-content: center;
+
+
+}

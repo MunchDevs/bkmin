@@ -1,7 +1,11 @@
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z0">
+<div class="page-action-header">
+  <div class="page-title">
+     Drivers
+  </div>
 
-   
-  
+    
+</div>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z0">
     <!-- Name Column -->
     <ng-container matColumnDef="name">
 
@@ -19,7 +23,7 @@
                     {{element.phone_number}}
                 </div>
                 <div>
-                   Status : Occupied /free
+                   Status : <span *ngIf="element.occupied">Occupied</span> <span *ngIf="!element.occupied">Free</span>
                   
                 </div>
              </div>     

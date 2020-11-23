@@ -17,6 +17,7 @@ import { SectionsComponent } from './layout/sections/sections.component';
 import { SettingsComponent } from './layout/settings/settings.component';
 import { SystemUsersComponent } from './layout/system-users/system-users.component';
 import { LoginComponent } from './login/login.component';
+import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 
 const routes: Routes = [
     {path:'',redirectTo:'login',pathMatch:'full'},
@@ -37,7 +38,9 @@ const routes: Routes = [
     {path:'products/new',component:NewMenuItemComponent},
     {path:'newmerchant',component:NewMerchantComponent},
     {path:'products/:id',component:EditmenuComponent}
-  ]}
+    ]},
+  {path:'unauthorized',component:UnauthorizedComponent},
+
 ];
 
 @NgModule({

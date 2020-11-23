@@ -1,8 +1,11 @@
+<div class="page-action-header">
+    <div class="page-title">
+         Merchant  Details
+    </div>
+    <button (click)="save()"  mat-flat-button color="accent" >Save</button>
+  </div>
+
 <mat-vertical-stepper [linear]="isLinear" #stepper>
-  
-  
-  
-  
     <mat-step [stepControl]="profileForm">
         <ng-template matStepLabel>Merchant Profile</ng-template>
        
@@ -37,37 +40,7 @@
             </div>
     
             <div class="banner-edit-section">
-                <div *ngIf="!bannerCropping && !croppedBanner" class="upload-section-banner" (click)="fileInput2.click()">
-                    <div class="upload-text">Upload Banner</div>
-                </div>
-        
-                <img  height="140" [src]="croppedBanner" *ngIf="!bannerCropping && croppedBanner" (click)="fileInput2.click()" />
-        
-                <input  #fileInput2 type="file" type="file" style="display:none;" (change)="bannerChangeEvent($event)"  />
-                <div *ngIf="bannerCropping">
-                    <image-cropper
-                    [imageChangedEvent]="bannerChangedEvent"
-                    [maintainAspectRatio]="true"
-                    [aspectRatio]="4 / 2"
-                    [resizeToWidth]="320"
-                    format="png"
-                    (imageCropped)="bannerCropped($event)"
-                    (imageLoaded)="imageLoaded()"
-                    (cropperReady)="cropperReady()"
-                    (loadImageFailed)="loadImageFailed()"
-                  >
-                   </image-cropper>
-                </div>
-             
-        
-                <button  mat-raised-button *ngIf="bannerCropping" (click)="bannerCropping=false">
-                    Done <mat-icon>check</mat-icon>
-                </button>
-        
-            </div>
-        </div>
-       
-
+          
       <form [formGroup]="profileForm">
 
         <div class="top-detail-section">
@@ -78,6 +51,11 @@
                     Name is required
                 </mat-error>
                
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width-top">
+                <mat-label>Commission</mat-label>
+                <input matInput placeholder="Motto" formControlName="commission">
             </mat-form-field>
     
             <mat-form-field class="example-full-width-top">
@@ -90,32 +68,20 @@
                 <textarea matInput placeholder="Motto" formControlName="about"></textarea>
             </mat-form-field>
     
-            <!-- <mat-form-field class="example-full-width-top">
-                <mat-label>Categories</mat-label>
-                <mat-select matInput formControlName="categories" multiple>
-                    <mat-option *ngFor="let item of Categories" [value]="item.name">
-                      {{item.name}}
-                    </mat-option>
-                  </mat-select>
-                  <mat-error *ngIf="categories.errors?.required && categories.touched">
-                    A Category is required
-                </mat-error>
-            </mat-form-field> -->
+          
         </div>
 
-         
-        <mat-form-field class="example-full-width">
-            <mat-label>Default Password</mat-label>
-            <input matInput placeholder="Default Password" value="{{default_pass+123}}"  formControlName="default_password">
-            <!-- <mat-error *ngIf="email.errors?.required && email.touched">
-                Email is required
-            </mat-error> -->
-        </mat-form-field>
+      
 
         <div>
           <button mat-button matStepperNext>Next</button>
         </div>
       </form>
+        
+            </div>
+        </div>
+       
+
     </mat-step>
 
 
@@ -125,7 +91,7 @@
 
     <mat-step [stepControl]="contactsForm">
         <ng-template matStepLabel>Contact Details</ng-template>
-      <form [formGroup]="contactsForm">
+        <form [formGroup]="contactsForm">
                 <mat-form-field class="example-full-width">
                     <mat-label>Email</mat-label>
                     <input matInput placeholder="Email"  formControlName="email">
@@ -150,10 +116,7 @@
                         City is required
                     </mat-error>
                 </mat-form-field>
-            
-           
-                
-                         
+                   
               <div formArrayName="contacts" *ngFor="let contact of contactsForm.get('contacts')['controls']; index as i">  
                 <div [formGroupName]="i" style="display: flex; align-items: center;">
                  <mat-form-field class="example-full-width">
@@ -184,7 +147,7 @@
 
 
 
-    <mat-step [stepControl]="operationsForm">
+    <mat-step [stepControl]="bussiness_hours_form">
        
           <ng-template matStepLabel>Operations</ng-template>
           <!-- <mat-form-field class="example-full-width">
@@ -192,7 +155,7 @@
             <input matInput placeholder="Commission" formControlName="commission" type="number">
           </mat-form-field> -->
 
-          <form [formGroup]="operationsForm" class="bussiness-hours-section">
+          <form [formGroup]="bussiness_hours_form" class="bussiness-hours-section">
           
             <div formGroupName="monday" class="bussiness-hours-item">
              
@@ -326,5 +289,5 @@
   
 
   <!-- <button [disabled]="res_form.invalid || !croppedLogo || !croppedBanner ||!position" mat-raised-button (click)="submit()">Submit</button>  -->
-  <button (click)="submit()">save</button>
+
 

@@ -1,134 +1,217 @@
-<div class="menu-details-section">
-    <div class="image-edit-section">
-        <div  *ngIf="!imageCropping && !croppedimage" class="upload-section-image" (click)="fileInput1.click()">
-            <div class="upload-text">Upload image</div>
-        </div>
-    
-        <img class="cropped-image"  [src]="croppedimage" *ngIf="!imageCropping && croppedimage" (click)="fileInput1.click()"/>
-    
-        <input #fileInput1 type="file" style="display:none;" (change)="imageChangeEvent($event)" />
-        <div style="width:100%; height: 200px;"  *ngIf="imageCropping">
-            <image-cropper
-            [imageChangedEvent]="imageChangedEvent"
-            [maintainAspectRatio]="true"
-            [aspectRatio]="2 / 1"
-            [resizeToWidth]="256"
-            format="png"
-            (imageCropped)="imageCropped($event)"
-            (imageLoaded)="imageLoaded()"
-            (cropperReady)="cropperReady()"
-            (loadImageFailed)="loadImageFailed()"
-            >
-          </image-cropper>
-        </div>
-    
-    
-        <button mat-raised-button class="done-button" *ngIf="imageCropping" (click)="uploadimage()">Done
-            <mat-icon>check</mat-icon>
-        </button>
-        
-    </div> 
-<div class="item-details">
-    <form [formGroup]="detailsForm">
-        <mat-form-field class="item-name-field">
-            <mat-label>Name</mat-label>
-            <input matInput placeholder="Name" formControlName="name" >
-            <!-- <mat-error *ngIf="phone_numbers.errors?.required && phone_numbers.touched">
-                A phone number is required
-            </mat-error> -->
-        </mat-form-field>
-    
-        <div class="item-prices-section" formArrayName="prices" *ngFor="let price of detailsForm.get('prices')['controls']; index as p" >
-            <div [formGroupName]="p">
-                <mat-form-field class="input-field">
-                    <mat-label>size</mat-label>
-                    <input matInput placeholder="size" formControlName="size" (keyup)="updatePriceSize(p)">
-                    <!-- <mat-error *ngIf="phone_numbers.errors?.required && phone_numbers.touched">
-                        A phone number is required
-                    </mat-error> -->
-                </mat-form-field>
-                <mat-form-field class="input-field">
-                    <mat-label>prize</mat-label>
-                    <input matInput placeholder="price" formControlName="price">
-                    <!-- <mat-error *ngIf="phone_numbers.errors?.required && phone_numbers.touched">
-                        A phone number is required
-                    </mat-error> -->
-                </mat-form-field>
-            </div>
-            <div>
-                <mat-icon style="cursor: pointer;" (click)="removeItemPrice(p)">delete_outline</mat-icon>
-          
-            </div>
-        </div>
-        <div>
-            <button mat-raised-button (click)="pushItemPrice()">Add Price</button>
-        </div>
-    </form>
-
-
+<div class="page-action-header">
+    <div class="page-title">
+        Product Details
+    </div>
+    <button [disabled]="detailsForm.invalid || !this.image_url" (click)="submit()" mat-flat-button color="accent" >Save</button>
 </div>
-  
-    
-</div>
-
-
-<mat-vertical-stepper [linear]="isLinear" #stepper>
-   
-    <mat-step [stepControl]="extrasForm">
-        <ng-template matStepLabel>Menu Extras</ng-template>
-        
-      <form [formGroup]="extrasForm">
-        <div formArrayName="addon_categories" *ngFor="let addon_category of extrasForm.get('addon_categories')['controls']; index as i" >
-            <div class="addon-category-section" [formGroupName]="i">
-                <div class="addon-category-header">
-                    <mat-form-field class="name-field">
-                        <mat-label>Category Name</mat-label>
-                        <input matInput placeholder="Name" formControlName="name">
+<div class="forms-section">
+    <mat-vertical-stepper [linear]="isLinear" #stepper>
+        <mat-step [stepControl]="detailsForm">
+            <ng-template matStepLabel>Menu Details</ng-template>
+            <div class="menu-details-section">
+                <div class="image-edit-section">
+                    <div  *ngIf="!imageCropping && !croppedimage" class="upload-section-image" (click)="fileInput1.click()">
+                        <div class="upload-text">Upload image</div>
+                    </div>
+                
+                    <img class="cropped-image"  [src]="croppedimage" *ngIf="!imageCropping && croppedimage" (click)="fileInput1.click()"/>
+                
+                    <input #fileInput1 type="file" style="display:none;" (change)="imageChangeEvent($event)" />
+                    <div style="width:100%; height:300px;"  *ngIf="imageCropping">
+                        <image-cropper
+                        [imageChangedEvent]="imageChangedEvent"
+                        [maintainAspectRatio]="true"
+                        [aspectRatio]="1 / 1"
+                        [resizeToWidth]="256"
+                        format="png"
+                        (imageCropped)="imageCropped($event)"
+                        (imageLoaded)="imageLoaded()"
+                        (cropperReady)="cropperReady()"
+                        (loadImageFailed)="loadImageFailed()"
+                        >
+                      </image-cropper>
+                    </div>
+                
+                
+                    <button mat-raised-button class="done-button" *ngIf="imageCropping" (click)="uploadimage()">Done
+                        <mat-icon>check</mat-icon>
+                    </button>
+                    {{percent}} 
+                </div> 
+            <div class="item-details">
+                <form [formGroup]="detailsForm">
+                    <mat-form-field floatLabel='never' class="item-name-field" style="margin-bottom: -18px;">
+                        <mat-label>Name</mat-label>
+                        <input matInput placeholder="Name" formControlName="name" >
                         <!-- <mat-error *ngIf="phone_numbers.errors?.required && phone_numbers.touched">
                             A phone number is required
                         </mat-error> -->
                     </mat-form-field>
-        
-                    <mat-checkbox class="input-field">Required</mat-checkbox>
-        
-                    <mat-form-field class="input-field">
-                            <mat-label>Select Option</mat-label>
-                            <mat-select>
-                              <mat-option *ngFor="let option of select_options" [value]="option">
-                                {{option}}
-                              </mat-option>
-                            </mat-select>
+
+                    <mat-form-field  class="" style=" width: 100%;">
+                        <mat-label>Description</mat-label>
+                        <textarea style="width: 100%;" matInput placeholder="description" formControlName="description" >
+                        </textarea>
+                        <!-- <mat-error *ngIf="phone_numbers.errors?.required && phone_numbers.touched">
+                            A phone number is required
+                        </mat-error> -->
                     </mat-form-field>
-    
-                    <div>
-                        <mat-icon style="cursor: pointer;" (click)="removeAddonCategory(i)">delete_outline</mat-icon>
-                 
-                    </div>
-                </div>
-            
-    
-                <div class="addon-section" formArrayName="addons" *ngFor="let addon of extrasForm.get('addon_categories')['controls'][i].get('addons')['controls']; index as a" >
-                    <div [formGroupName]="a">
-                        <div class="addon-header">
-                            <mat-form-field class="name-field input-field" >
-                                <mat-label>Name</mat-label>
-                                <input matInput placeholder="Name" formControlName="name">
+                
+                    <div class="item-prices-section" formArrayName="prices" *ngFor="let price of detailsForm.get('prices')['controls']; index as p" >
+                        <div class="size-price-item" [formGroupName]="p">
+                            <mat-form-field class="size-price-field input-field">
+                                <mat-label>size</mat-label>
+                                <input matInput placeholder="size" formControlName="size" (keyup)="updatePriceSize(p)">
                                 <!-- <mat-error *ngIf="phone_numbers.errors?.required && phone_numbers.touched">
                                     A phone number is required
                                 </mat-error> -->
                             </mat-form-field>
+                            <mat-form-field class="size-price-field input-field">
+                                <mat-label>prize</mat-label>
+                                <input matInput placeholder="price" formControlName="price">
+                                <!-- <mat-error *ngIf="phone_numbers.errors?.required && phone_numbers.touched">
+                                    A phone number is required
+                                </mat-error> -->
+                                <span matPrefix>$&nbsp;</span>
+                            </mat-form-field>
                             <div>
-                                <mat-icon style="cursor: pointer;" (click)="removeAddon(i,a)">delete_outline</mat-icon>
-                            
+                                <mat-icon style="cursor: pointer;" (click)="removeItemPrice(p)">delete</mat-icon>
                             </div>
                         </div>
-                        
-
-                        <div class="addon-prices-section" formArrayName="prices" *ngFor="let price of extrasForm.get('addon_categories')['controls'][i].get('addons')['controls'][a].get('prices')['controls']; index as p" >
+                      
+                    </div>
+                    <div>
+                        <button class="ico-btn" mat-stroked-button (click)="pushItemPrice()">
+                            <mat-icon>add</mat-icon>
+                            <span>Price</span> 
+                        </button>
+                    </div>
+                </form>
+            
+            </div>
+              
+                
+            </div>
+        </mat-step>
+       
+        <mat-step [stepControl]="extrasForm">
+            <ng-template matStepLabel>Menu Extras</ng-template>
+            
+          <form [formGroup]="extrasForm">
+            <div formArrayName="addon_categories" *ngFor="let addon_category of extrasForm.get('addon_categories')['controls']; index as i" >
+                <div class="addon-category-section" [formGroupName]="i">
+                    <div class="addon-category-header">
+                        <mat-form-field floatLabel='never' class="name-field category-field">
+                            <mat-label>Extras Category</mat-label>
+                            <input matInput placeholder="Name" formControlName="name">
+                            <!-- <mat-error *ngIf="phone_numbers.errors?.required && phone_numbers.touched">
+                                A phone number is required
+                            </mat-error> -->
+                        </mat-form-field>
+            
+                        <mat-checkbox class="input-field">Required</mat-checkbox>
+            
+                        <mat-form-field class="input-field">
+                                <mat-label>Select Option</mat-label>
+                                <mat-select>
+                                  <mat-option *ngFor="let option of select_options" [value]="option">
+                                    {{option}}
+                                  </mat-option>
+                                </mat-select>
+                        </mat-form-field>
+        
+                        <div>
+                            <mat-icon style="cursor: pointer;" (click)="removeAddonCategory(i)">delete</mat-icon>
+                     
+                        </div>
+                    </div>
+                     
+                    <div class="addons-section" formArrayName="addons" *ngFor="let addon of extrasForm.get('addon_categories')['controls'][i].get('addons')['controls']; index as a" >
+                        <div class="addon-item-section" [formGroupName]="a">
+                            <div class="addon-header">
+                                <mat-form-field floatLabel='never' class="name-field">
+                                    <mat-label>Extra Item </mat-label>
+                                    <input matInput placeholder="Name" formControlName="name">
+                                    <!-- <mat-error *ngIf="phone_numbers.errors?.required && phone_numbers.touched">
+                                        A phone number is required
+                                    </mat-error> -->
+                                </mat-form-field>
+                                <div>
+                                    <mat-icon style="cursor: pointer;" (click)="removeAddon(i,a)">close</mat-icon>
+                                
+                                </div>
+                            </div>
+                            
+                            <div class="addon-prices-section">
+                                <div class="addon-size-price-item" formArrayName="prices" *ngFor="let price of extrasForm.get('addon_categories')['controls'][i].get('addons')['controls'][a].get('prices')['controls']; index as p" >
+                                    <div class="size-price-field" [formGroupName]="p">
+                    
+                                        <input hidden placeholder="size" formControlName="size">
+                                        <mat-form-field class="input-field">
+                                            <mat-label>price on
+                                                {{detailsForm.get('prices')['controls'][p].get('size').value}}
+                                            </mat-label>
+                                            <input matInput placeholder="price" formControlName="price">
+                                            <!-- <mat-error *ngIf="phone_numbers.errors?.required && phone_numbers.touched">
+                                                A phone number is required
+                                            </mat-error> -->
+                                            <span matPrefix>$&nbsp;</span>
+                                        </mat-form-field>
+                                     
+                                    </div>
+                                
+                                </div>
+                            </div>
+                          
+    
+                            <!-- <button mat-raised-button (click)="pushAddonPrice(i,a)">Add Price</button> -->
+        
+                        </div>
+             
+                    </div>
+    
+    
+                </div>
+                <div style="display: flex;justify-content: flex-end;">
+                    <button class="ico-btn" style="margin-right: 12px;" mat-stroked-button  (click)="pushAddon(i)">
+                        <mat-icon>add</mat-icon>
+                         Extra Item
+                    </button>
+                </div>
+              
+        
+            </div>
+               
+            <button class="ico-btn" mat-stroked-button  (click)="pushAddonCategory()">
+                <mat-icon>add</mat-icon>
+                Extras Category
+            </button>
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+    
+        <mat-step [stepControl]="preferencesForm">
+            <ng-template matStepLabel>Preferances</ng-template>
+            
+          <form [formGroup]="preferencesForm">
+              <div class="preferences-section">
+                <div class="preference-item-container" formArrayName="preferences" *ngFor="let preference of preferencesForm.get('preferences')['controls']; index as i" >
+                    <div class="preference-item" [formGroupName]="i">
+                        <mat-form-field style="width: 300px" class="example-full-width">
+                            <mat-label>Name</mat-label>
+                            <input matInput placeholder="Name" formControlName="name">
+                            <!-- <mat-error *ngIf="phone_numbers.errors?.required && phone_numbers.touched">
+                                A phone number is required
+                            </mat-error> -->
+                        </mat-form-field>
+                        <div formArrayName="prices" *ngFor="let price of preferencesForm.get('preferences')['controls'][i].get('prices')['controls']; index as p" >
                             <div [formGroupName]="p">
                               
                                 <input hidden placeholder="size" formControlName="size">
-                                <mat-form-field class="input-field">
+                                <mat-form-field class="example-full-width">
                                     <mat-label>price on
                                         {{detailsForm.get('prices')['controls'][p].get('size').value}}
                                     </mat-label>
@@ -138,90 +221,37 @@
                                     </mat-error> -->
                                 </mat-form-field>
                             </div>
-                            <div>
-                                <mat-icon style="cursor: pointer;" (click)="removeAddonPrice(i,a,p)">delete_outline</mat-icon>
-                          
-                            </div>
+                         
                         </div>
-
-                        <button mat-raised-button (click)="pushAddonPrice(i,a)">Add Price</button>
-    
+                       
+            
                     </div>
+                    <div>
+                        <mat-icon style="cursor: pointer;" (click)="removePreference(i)">close</mat-icon>
+                       
+                    </div>
+            
+                </div>
+              </div>
          
-                </div>
-
-
-            </div>
-            <button mat-raised-button (click)="pushAddon(i)">New Addon</button>
-    
-        </div>
-           
-        <button mat-raised-button (click)="pushAddonCategory()">New Addon Category</button>
-        <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>Next</button>
-        </div>
-      </form>
-    </mat-step>
-
-    <mat-step [stepControl]="preferencesForm">
-        <ng-template matStepLabel>Preferances</ng-template>
-        
-      <form [formGroup]="preferencesForm">
-        <div formArrayName="preferences" *ngFor="let preference of preferencesForm.get('preferences')['controls']; index as i" >
-            <div [formGroupName]="i">
-                <mat-form-field class="example-full-width">
-                    <mat-label>Name</mat-label>
-                    <input matInput placeholder="Name" formControlName="name">
-                    <!-- <mat-error *ngIf="phone_numbers.errors?.required && phone_numbers.touched">
-                        A phone number is required
-                    </mat-error> -->
-                </mat-form-field>
-                <div formArrayName="prices" *ngFor="let price of preferencesForm.get('preferences')['controls'][i].get('prices')['controls']; index as p" >
-                    <div [formGroupName]="p">
-                      
-                        <input hidden placeholder="size" formControlName="size">
-                        <mat-form-field class="example-full-width">
-                            <mat-label>price on
-                                {{detailsForm.get('prices')['controls'][p].get('size').value}}
-                            </mat-label>
-                            <input matInput placeholder="price" formControlName="price">
-                            <!-- <mat-error *ngIf="phone_numbers.errors?.required && phone_numbers.touched">
-                                A phone number is required
-                            </mat-error> -->
-                        </mat-form-field>
-                    </div>
-                 
-                </div>
-               
-    
-            </div>
+            <button class="ico-btn" mat-stroked-button  (click)="pushPreference()">
+                <mat-icon>add</mat-icon>
+                Prefences</button>
+   
             <div>
-                <mat-icon style="cursor: pointer;" (click)="removePreference(i)">close</mat-icon>
-                remove Preferance
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperNext>Next</button>
             </div>
-    
-        </div>
-        <button mat-raised-button (click)="pushPreference()">Add New Prefences</button>
-    
+          </form>
+        </mat-step>
 
-        <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>Next</button>
-        </div>
-      </form>
-    </mat-step>
-    <mat-step>
-      <ng-template matStepLabel>Done</ng-template>
-      <p>You are now done.</p>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button (click)="stepper.reset()">Reset</button>
-      </div>
-    </mat-step>
-  </mat-vertical-stepper>
-
-
-<div class="footer">
-<button [disabled]="detailsForm.invalid" (click)="submit()" mat-flat-button color="accent" >Save</button>
+        <mat-step>
+          <ng-template matStepLabel>Done</ng-template>
+          <p>You are now done.</p>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button (click)="stepper.reset()">Reset</button>
+          </div>
+        </mat-step>
+      </mat-vertical-stepper>
 </div>

@@ -1,0 +1,13 @@
+.lock{
+    height: 130px;
+}
+
+
+.full-screen-layout{
+    /* border: 1px solid teal; */
+    height: 99vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

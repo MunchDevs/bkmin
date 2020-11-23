@@ -1,9 +1,12 @@
  
+  <div class="page-action-header">
+    <div class="page-title">
+        New Merchant
+    </div>
+    <button  [disabled]=" contactsForm.invalid || bussiness_hours_form.invalid || profileForm.invalid || !croppedLogo " (click)="uploadLogo()" mat-flat-button color="accent" >Save</button>
+  </div>
   <mat-vertical-stepper [linear]="isLinear" #stepper>
-  
-  
-  
-  
+
     <mat-step [stepControl]="profileForm">
         <ng-template matStepLabel>Merchant Profile</ng-template>
        
@@ -13,7 +16,7 @@
                     <div class="upload-text">Upload Logo</div>
                 </div>
         
-                <img height="200" width="200"  [src]="croppedLogo" *ngIf="!logoCropping && croppedLogo" (click)="fileInput1.click()"/>
+                <img height="120" width="120"  [src]="croppedLogo" *ngIf="!logoCropping && croppedLogo" (click)="fileInput1.click()"/>
         
                 <input #fileInput1 type="file" style="display:none;" (change)="logoChangeEvent($event)" />
                 <div style="width: 200px; height: 200px;"  *ngIf="logoCropping">
@@ -36,8 +39,76 @@
                     <mat-icon>check</mat-icon>
                 </button>
             </div>
-    
-            <div class="banner-edit-section">
+            <form [formGroup]="profileForm">
+
+                <div class="top-detail-section">
+                    <mat-form-field class="example-full-width-top">
+                        <mat-label>Name</mat-label>
+                        <input matInput placeholder="Name" formControlName="name">
+                        <mat-error *ngIf="name.errors?.required && name.touched">
+                            Name is required
+                        </mat-error>
+                       
+                    </mat-form-field>
+         
+                    <mat-form-field class="example-full-width-top">
+                        <mat-label>Commission</mat-label>
+                        <input matInput placeholder="Commission" formControlName="commission" type="number">
+                        <!-- <mat-error *ngIf="name.errors?.required && name.touched">
+                            Commission is required
+                        </mat-error> -->
+                       
+                    </mat-form-field>
+        
+                    <mat-form-field class="example-full-width-top">
+                        <mat-label>Categories</mat-label>
+            
+                            <mat-select formControlName="categories" multiple>
+                                <mat-option *ngFor="let category of categories" [value]="category">{{category}}</mat-option>
+                            </mat-select>
+                        <!-- <mat-error *ngIf="name.errors?.required && name.touched">
+                            Categories is required
+                        </mat-error> -->
+                       
+                    </mat-form-field>
+            
+                    <mat-form-field class="example-full-width-top">
+                        <mat-label>Motto</mat-label>
+                        <input matInput placeholder="Motto" formControlName="motto">
+                    </mat-form-field>
+                    
+                    <mat-form-field class="example-full-width-top">
+                        <mat-label>About</mat-label>
+                        <textarea matInput placeholder="Motto" formControlName="about"></textarea>
+                    </mat-form-field>
+            
+                    <!-- <mat-form-field class="example-full-width-top">
+                        <mat-label>Categories</mat-label>
+                        <mat-select matInput formControlName="categories" multiple>
+                            <mat-option *ngFor="let item of Categories" [value]="item.name">
+                              {{item.name}}
+                            </mat-option>
+                          </mat-select>
+                          <mat-error *ngIf="categories.errors?.required && categories.touched">
+                            A Category is required
+                        </mat-error>
+                    </mat-form-field> -->
+                </div>
+        
+                 
+                <mat-form-field class="example-full-width">
+                    <mat-label>Default Password</mat-label>
+                    <input matInput placeholder="Default Password" value="{{default_pass+123}}"  formControlName="default_password">
+                    <!-- <mat-error *ngIf="email.errors?.required && email.touched">
+                        Email is required
+                    </mat-error> -->
+                </mat-form-field>
+        
+                <div>
+                  <button mat-button matStepperNext>Next</button>
+                </div>
+              </form>
+            <!-- <div class="banner-edit-section">
                 <div *ngIf="!bannerCropping && !croppedBanner" class="upload-section-banner" (click)="fileInput2.click()">
                     <div class="upload-text">Upload Banner</div>
                 </div>
@@ -65,79 +136,11 @@
                     Done <mat-icon>check</mat-icon>
                 </button>
         
-            </div>
+            </div> -->
         </div>
        
 
-      <form [formGroup]="profileForm">
-
-        <div class="top-detail-section">
-            <mat-form-field class="example-full-width-top">
-                <mat-label>Name</mat-label>
-                <input matInput placeholder="Name" formControlName="name">
-                <mat-error *ngIf="name.errors?.required && name.touched">
-                    Name is required
-                </mat-error>
-               
-            </mat-form-field>
  
-            <mat-form-field class="example-full-width-top">
-                <mat-label>Commission</mat-label>
-                <input matInput placeholder="Commission" formControlName="commission" type="number">
-                <!-- <mat-error *ngIf="name.errors?.required && name.touched">
-                    Commission is required
-                </mat-error> -->
-               
-            </mat-form-field>
-
-            <mat-form-field class="example-full-width-top">
-                <mat-label>Categories</mat-label>
-    
-                    <mat-select formControlName="categories" multiple>
-                        <mat-option *ngFor="let category of categories" [value]="category">{{category}}</mat-option>
-                    </mat-select>
-                <!-- <mat-error *ngIf="name.errors?.required && name.touched">
-                    Categories is required
-                </mat-error> -->
-               
-            </mat-form-field>
-    
-            <mat-form-field class="example-full-width-top">
-                <mat-label>Motto</mat-label>
-                <input matInput placeholder="Motto" formControlName="motto">
-            </mat-form-field>
-            
-            <mat-form-field class="example-full-width-top">
-                <mat-label>About</mat-label>
-                <textarea matInput placeholder="Motto" formControlName="about"></textarea>
-            </mat-form-field>
-    
-            <!-- <mat-form-field class="example-full-width-top">
-                <mat-label>Categories</mat-label>
-                <mat-select matInput formControlName="categories" multiple>
-                    <mat-option *ngFor="let item of Categories" [value]="item.name">
-                      {{item.name}}
-                    </mat-option>
-                  </mat-select>
-                  <mat-error *ngIf="categories.errors?.required && categories.touched">
-                    A Category is required
-                </mat-error>
-            </mat-form-field> -->
-        </div>
-
-         
-        <mat-form-field class="example-full-width">
-            <mat-label>Default Password</mat-label>
-            <input matInput placeholder="Default Password" value="{{default_pass+123}}"  formControlName="default_password">
-            <!-- <mat-error *ngIf="email.errors?.required && email.touched">
-                Email is required
-            </mat-error> -->
-        </mat-form-field>
-
-        <div>
-          <button mat-button matStepperNext>Next</button>
-        </div>
-      </form>
     </mat-step>
 
 
@@ -370,6 +373,5 @@
   
 
 
-  <button [disabled]=" contactsForm.invalid || bussiness_hours_form.invalid || profileForm.invalid || !croppedLogo || !croppedBanner " (click)="uploadLogo()">save</button>
 
 

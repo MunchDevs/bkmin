@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "bikedelivery",
     "public": "dist/white-label-admin",
     "ignore": [
       "firebase.json",

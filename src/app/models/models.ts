@@ -81,6 +81,7 @@ export interface AddonCategory{
 export interface Product {
    
     name: string,
+    description:string,
     image_url: string,
     available: boolean,
     addon_categories: AddonCategory[],
@@ -132,7 +133,7 @@ export interface Request extends timestamp {
     request_type: string,
     booked_time:number,
     booked_for:number,
-
+    driver:Driver,
     customer_id: string,
     customer_email: string,
     customer_name: string,
@@ -207,7 +208,14 @@ export interface Driver{
     name: string,
     phone_number: string,
     reg_no: string,
-    vehicle_reg: string
+    vehicle_reg: string,
+    occupied:boolean
+}
+
+export interface Tier{
+    charge:number,
+    max:number,
+    min:number
 }
 
 

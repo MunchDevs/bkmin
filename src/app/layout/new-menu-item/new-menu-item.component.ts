@@ -6,7 +6,7 @@ import { FormArray, FormArrayName, FormBuilder, FormControl, FormGroup, Validato
 import { AngularFirestore } from '@angular/fire/firestore'
 import { MerchantsService } from 'src/app/merchants.service';
 import { Product } from '../../models/models';
-
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -21,21 +21,25 @@ export class NewMenuItemComponent implements OnInit {
   extrasForm: FormGroup;
   preferencesForm: FormGroup;
   imageChangedEvent: any = '';
-  mechant_name = 'mechant1';
-  menu_item_name = 'product1'
+  mechant_name;
   croppedimage: any = '';
   image_url;
   uploadPercent;
   downloadURL;
   Categories = [];
   imageCropping: boolean = false;
+  percent
+  constructor(private _location: Location,private merchants_service:MerchantsService,private db:AngularFirestore, private fb:FormBuilder ,private storage: AngularFireStorage) { 
+     this.mechant_name =  this.merchants_service.current_merchant.name 
 
-  constructor(private merchants_service:MerchantsService,private db:AngularFirestore, private fb:FormBuilder ,private storage: AngularFireStorage) { }
+  }
   form:FormGroup;
+  
   select_options = ['multiple','single']
   ngOnInit(): void {
     this.detailsForm = this.fb.group({
       name: ['', Validators.required],
+      description:[''],
       prices: new FormArray([
         this.fb.group({
           size:['',[Validators.required]],
@@ -45,43 +49,19 @@ export class NewMenuItemComponent implements OnInit {
     });
 
     this.extrasForm = this.fb.group({
-      addon_categories:new FormArray([
-        this.fb.group({
-          name:['',[Validators.required]],
-          required:[false,[Validators.required]],
-          select_option:['',[Validators.required]],
-          addons:new FormArray([
-            this.fb.group({
-              name:['',[Validators.required]],
-              prices: new FormArray([
-                this.fb.group({
-                  size:['',[Validators.required]],
-                  price:['',[Validators.required]]
-                })
-              ])
-            })
-          ]),
-        })
-      ]), 
+      addon_categories:new FormArray([]), 
     });
 
     this.preferencesForm = this.fb.group({
-      preferences: new FormArray([
-        this.fb.group({
-          name:['',[Validators.required]],
-          prices: new FormArray([
-            this.fb.group({
-              size:['',[Validators.required]],
-              price:['',[Validators.required]]
-            })
-          ])
-        })
-      ])
+      preferences: new FormArray([])
     });
 
   }
+
+  
+  
   //These are array forms that are pushed thats
-  //
+  
 
   initForms(){
 
@@ -285,7 +265,8 @@ export class NewMenuItemComponent implements OnInit {
   imageCropped(event: ImageCroppedEvent) {
     // console.log(event)
     this.croppedimage = event.base64;
-    // this.upload(this.croppedimage)
+    // x = (n * (3/4)) - y
+    // console.log(this.croppedimage)
   }
 
   uploadimage() { 
@@ -297,7 +278,12 @@ export class NewMenuItemComponent implements OnInit {
     // console.log(res_name_array) 
     let res_name_joined = res_name_array.join("_")
     // console.log(res_name_joined)
-    const filePath = `${res_name_joined}/products/${this.menu_item_name}`;
+    let item_name_array:string[] = this.detailsForm.value.name.split(' ');
+    // console.log(item_name_array) 
+    let item_name_joined = item_name_array.join("_")
+
+    const filePath = `${res_name_joined}/products/${item_name_joined}`;
+  
     const fileRef = this.storage.ref(filePath);
     // console.log(filePath)
     const task = this.storage.upload(filePath, file,{ customMetadata: { cacheControl: 'public,max-age=4000' } });
@@ -305,7 +291,10 @@ export class NewMenuItemComponent implements OnInit {
     //monitor uploading task
     //observe percentage changes
     this.uploadPercent = task.percentageChanges()
-
+    task.percentageChanges().subscribe(x=>{
+      console.log(x)
+      this.percent = x
+    })
     //get the download url
  
     //get notified when the download URL is available
@@ -317,7 +306,6 @@ export class NewMenuItemComponent implements OnInit {
             console.log(x)
             //save image url
             this.image_url = x
-       
           })
         
         })
@@ -367,12 +355,16 @@ export class NewMenuItemComponent implements OnInit {
     if(this.image_url){
       let product:Product = {
         name: this.detailsForm.value.name,
+        description: this.detailsForm.value.description,
         image_url: this.image_url,
         available: true,
         addon_categories: this.extrasForm.value.addon_categories,
         preferences: this.preferencesForm.value.preferences,
         // merchant_id: this.merchants_service.current_merchant.id, //remove
         prices: this.detailsForm.value.prices
+     
+     
+     
       }
 
       //
@@ -380,8 +372,10 @@ export class NewMenuItemComponent implements OnInit {
 
       this.merchants_service.current_merchant.sections[this.merchants_service.current_section_index].products.push(product);
       console.log(this.merchants_service.current_merchant)
-      this.db.doc(`merchants/${this.merchants_service.current_merchant.id}`).set(this.merchants_service.current_merchant,{merge:true})
-    
+      // this.db.doc(`merchants/${this.merchants_service.current_merchant['id']}`).set(this.merchants_service.current_merchant,{merge:true})
+     
+      this._location.back();
+
     }else{
       console.log('please upload image')
     }

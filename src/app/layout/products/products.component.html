@@ -1,20 +1,23 @@
-<p>products works!</p>
+
 <div class="page-title">
-    Mechant Section Menu
+    {{merchant_name | titlecase}} {{section_name | titlecase}} Menu
  </div>
  <div class="menu-list" >
-     <div class="menu-list-item" *ngFor="let product of products ; index as i" (click)="viewProduct(i)" >
+     <div class="menu-list-item" *ngFor="let product of products ; index as i"  >
        <div class="menu-avatar-container">
          <div class="menu-avatar">
            <img class="avatar" [src] = "product.image_url" />
          </div>
        </div>
-       <div class="menu-list-details">
-         <div>
+       <div class="menu-list-details" (click)="viewProduct(i)">
+         <div class="product-name">
            {{product.name}}
          </div>
-         <div>
-           Taril
+         <div style="display: flex;">
+           <div class="size-price" *ngFor="let size_prize of product.prices">
+             {{size_prize.size}} 
+             {{size_prize.price | currency}}
+           </div>
          </div>
    
        </div>
@@ -22,8 +25,8 @@
        <div class="menu-actions">
  
          <div class="menu-action-btn">
-           <mat-icon [routerLink]="['/editmenu/1']" routerLinkActive="router-link-active" >edit</mat-icon>
-             <mat-slide-toggle></mat-slide-toggle>
+           <!-- <mat-icon >edit</mat-icon> -->
+             <mat-slide-toggle [checked]="product.available" (change)="toggleAvailability(i,$event.checked)"></mat-slide-toggle>
          </div>
        </div>
      </div>

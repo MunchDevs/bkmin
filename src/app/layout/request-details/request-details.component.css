@@ -1,29 +1,54 @@
 .order-details-container{
     display: flex;
     flex-direction: column;
-    border: 1px solid crimson;
-    height: calc(100vh - 118px)
+    /* border: 2px solid crimson; */
+    height: calc(100vh - 118px);
+    padding:8px
 }
 .order-header{
     display: flex;
-    border: 1px solid yellowgreen;
+    border: 1px solid #ddd;
 }
 .order-header-left{
     
 }
 .order-header-center{
     flex-grow: 1;
-    border: 1px solid lightcoral;
+    padding: 8px;
+    /* border: 1px solid lightcoral; */
+}
+
+.order-client-name{
+  font-size: 1.1rem;
+  font-weight: bold;
 }
 .order-header-right{
 
 }
+
+.order-action-container{
+    /* border: 1px solid teal; */
+}
 .order-content{
-    border: 1px solid rebeccapurple;
+    border: 1px solid #ddd;
+    background-color: #fff;
     flex-grow: 1;
     overflow-y: scroll;
     display: flex;
     flex-direction: column;
+    padding: 0px 8px
+}
+
+.addon-item{
+    font-size: 0.7rem;
+}
+
+.extras-header{
+    margin-left: 4px;
+    text-decoration: underline;
+}
+.extras-container{
+    margin-left: 16px;
 }
 .order-footer{
     border: 1px solid crimson;
@@ -34,25 +59,41 @@
 
 .customer-contact-item{
     display: flex;
+    font-size: 0.7rem;
 }
 .contact-item-details{
     flex: 1 1 auto;
 }
 
+.req-btn{
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+ 
+}
+
 .order-item{
    display: flex;
-   flex-grow: 1;
-   border: 1px solid fuchsia;
+   background-color: #eee;
+  
+}
+
+.order-item-container{
+    border: 1px solid #ddd;
+    margin-bottom: 8px;
 }
 
 .order-items-header{
     display: flex;
-    border: 1px solid mediumblue;
+    /* border: 1px solid mediumblue; */
+    background-color: #ddd;
+    font-weight: bold;
 }
 
 .order-instructions{
     height: 36px;
-    border: 1px solid teal;
+    /* border: 1px solid teal; */
 }
 
 .order-item-name{
@@ -86,12 +127,13 @@
 
 .order-totals{
     display: flex;
-    border: 1px solid lightpink;
+    border: 1px solid #ddd;
 }
 
 .order-totals-right{
-    border: 1px solid royalblue;
+    border: 1px solid  #ddd;
     width: 100%;
+    
 }
 
 .order-total-item{

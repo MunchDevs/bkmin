@@ -1,8 +1,53 @@
+
+<div class="page-action-header">
+    <div class="page-title">
+        Request Details
+    </div>
+    <div *ngIf="request"  class="order-action-container">
+        <div *ngIf="request.stage === 'created'" class="order-details-actions">
+            <button mat-flat-button color="warn" (click)="changeStatus('cancelled')">Cancel Order</button>&nbsp;
+            <button mat-flat-button color="primary" (click)="changeStatus('accepted')">Accept Order</button>&nbsp;
+        </div>
+    
+        <div *ngIf="request.stage ==='accepted'"  class="order-details-actions" >
+           
+            <button mat-flat-button color="warn" (click)="selectDriver()">Assign Driver</button>&nbsp;
+            <button mat-flat-button color="warn" (click)="changeStatus('cancelled')">cancel order</button>&nbsp;
+        </div>
+    
+        <div *ngIf="request.stage ==='driver_assigned'"  class="order-details-actions" >
+            
+            <button mat-flat-button color="warn" (click)="changeStatus('delivery_started')">Start Delivery</button>&nbsp;
+            <!-- <button mat-flat-button color="warn">cancel order</button>&nbsp; -->
+        </div>
+    
+        <div *ngIf="request.stage ==='delivery_started'"  class="order-details-actions" >
+            <div>Order Status</div>
+            <button mat-flat-button color="warn" (click)="completeRequest(request)">Complete Order</button>
+            <!-- <button mat-flat-button color="warn">cancel order</button> -->
+        </div>
+    
+        <div *ngIf="request.stage === 'complete'" class="order-details-actions" >
+               Order status : Order delivered
+        </div>
+    
+        <div *ngIf="request.stage === 'cancelled'" >
+               Order Cancelled
+        </div>
+      
+    
+    </div>
+</div>
 <div *ngIf="request" class="order-details-container" >
     <div class="order-header">
         <div class="order-header-left">
             <div class="order-avatar">
-                avatar
+                <img *ngIf="request.stage === 'accepted'" class="avatar" src="../../../assets/svg-icons/031-soup.svg">
+                <img *ngIf="request.stage === 'created'" class="avatar" src="../../../assets/svg-icons/created.jpeg">
+                <img *ngIf="request.stage === 'driver_assigned'" class="avatar" src="../../../assets/svg-icons/delivery.jpeg">
+                <img *ngIf="request.stage === 'delivery_started'" class="avatar" src="../../../assets/svg-icons/delivery.jpeg">
+                <img *ngIf="request.stage === 'cancelled'" class="avatar" src="../../../assets/svg-icons/cancelled.jpeg">
+                <img *ngIf="request.stage === 'complete'" class="avatar" src="../../../assets/svg-icons/delivery.svg">
             </div>
         </div>
         <div class="order-header-center">
@@ -32,10 +77,10 @@
                 {{request.customer_phone}}
             </div>
             <div class="contact-item-action">
-                <button mat-stroked-button>call</button>
+                <button class="req-btn" >call</button>
             </div>
         </div>
-        <div class="customer-contact-item">
+        <!-- <div class="customer-contact-item">
             <div class="contact-item-icon">
                 <mat-icon>email</mat-icon>
             </div>
@@ -43,7 +88,7 @@
                 {{request.customer_email}}
             </div>
             <div class="contact-item-action">
-                <button mat-stroked-button>email</button>
+                <button class="req-btn" >email</button>
             </div>
         </div>
         <div class="customer-contact-item" *ngIf="request.request_type === 'delivery'" >
@@ -56,9 +101,9 @@
                 {{request.delivery_info.instructions}}
             </div>
             <div class="contact-item-action">
-                <button mat-stroked-button>navigate</button>
+                <button class="req-btn" >navigate</button>
             </div>
-        </div>
+        </div> -->
     </div>
     <div class="order-items-header">
         <span class="order-item-name">items</span>
@@ -66,19 +111,43 @@
         <span class="order-item-price">price</span>
     </div>
     <div class="order-content">
-        <div class="order-item" *ngFor="let item of request.items">
-            <div class="order-item-name">{{item.name}} &nbsp; {{item.size}}</div>
-            <div class="order-item-qty">{{item.quantity}}</div>
-            <div class="order-item-price">{{item.item_total_price}}</div>
+        <div *ngFor="let merchant_item of merchants_items">
+            {{merchant_item.name}}
+            <div class="order-item-container"  *ngFor="let item of merchant_item.items">
+                <div class="order-item">
+                    <div class="order-item-name">{{item.name}} &nbsp; {{item.size}}</div>
+                    <div class="order-item-qty">{{item.quantity}}</div>
+                    <div class="order-item-price">{{item.item_total_price | currency}}</div>
+                </div>
+                <div class="extras-header" *ngIf="item.addons.length">
+                    Extras
+                </div>
+                <div class="extras-container">
+                    <span class="addon-item" *ngFor="let addon of item.addons">
+                        {{addon.name}} {{addon.price | currency}}
+                    </span> &nbsp;
+                </div>  
+                <div class="extras-header" *ngIf="item?.preferences">
+                    Preference : {{ item.preferences.name}}{{ item.preferences.price | currency}}
+                </div>
+                <div *ngIf="item?.specifications">
+                    Specifications : {{ item.specifications}}
+                </div>
+                
+            </div>
         </div>
-     
     </div>
     <div class="order-instructions" >
-        <h2>{{request.request_type}}</h2>
+        <h2 *ngIf="request.request_type === 'delivery'">Request Type : {{request.request_type | titlecase}}</h2>
+        <h2 *ngIf="request.request_type === 'reservation'">Request Type : {{request.request_type | titlecase}} for {{request.booked_for}} on {{request.booked_time * 1000 | date :'medium'}}</h2>
+        <h2 *ngIf="request.request_type === 'pickup'">Request Type : {{request.request_type | titlecase}} on {{request.booked_time * 1000 | date :'medium'}}</h2>
+
     </div>
     <div class="order-totals">
       <div class="order-totals-left">
-        <button mat-stroked-button>Share Via Whatsapp</button>
+        <button mat-stroked-button (click)="copyRequest()">
+            Copy Request
+        </button>
 
       </div>
       <div class="order-totals-right">
@@ -98,11 +167,17 @@
           <div class="order-total-item">
             <div class="total-item-label">Discount(0%)</div>
             <div> : </div>
-            <div class="order-total-amount"></div>
+            <div class="order-total-amount"> {{ 0 | currency}}</div>
           </div>
 
           <div class="order-total">
-              Total {{request.total | currency}}
+            
+          </div>
+
+          <div class="order-total-item">
+            <div class="total-item-label"><b>Total</b>  </div>
+            <div> : </div>
+            <div class="order-total-amount"> <b>{{request.total | currency}}</b> </div>
           </div>
 
       </div>
@@ -110,37 +185,4 @@
 
 </div>
 
-<div *ngIf="request"  class="order-details-footer">
-    <div *ngIf="request.stage === 'created'" class="order-details-actions">
-        <button mat-flat-button color="warn" (click)="changeStatus('cancelled')">Cancel Order</button>
-        <button mat-flat-button color="primary" (click)="changeStatus('accepted')">Accept Order</button>
-    </div>
 
-    <div *ngIf="request.stage ==='accepted'"  class="order-details-actions" >
-        <div>Order Status</div>
-        <button mat-flat-button color="warn" (click)="selectDriver()">Assign Driver</button>
-        <button mat-flat-button color="warn">cancel order</button>
-    </div>
-
-    <div *ngIf="request.stage ==='driver_assigned'"  class="order-details-actions" >
-        <div>Order Status</div>
-        <button mat-flat-button color="warn" (click)="changeStatus('delivery_started')">Start Delivery</button>
-        <!-- <button mat-flat-button color="warn">cancel order</button> -->
-    </div>
-
-    <div *ngIf="request.stage ==='delivery_started'"  class="order-details-actions" >
-        <div>Order Status</div>
-        <button mat-flat-button color="warn" (click)="changeStatus('complete')">Complete Order</button>
-        <!-- <button mat-flat-button color="warn">cancel order</button> -->
-    </div>
-
-    <div *ngIf="request.stage === 'complete'" class="order-details-actions" >
-           Order status : Order delivered
-    </div>
-
-    <div *ngIf="request.stage === 'cancelled'" >
-           Order Cancelled by user
-    </div>
-  
-
-</div>

@@ -8,14 +8,15 @@ Image compression and
 Documentation
 admin code comments
 client app classes comments in Documentation
-
+Merchant app documentation and comments
+website remove multimaps loading
 flow charts
 
 App clean up
 left with promotions compartibility
 reverting the checkout page
-client app new image cache compartibility
-refixing styles
+client app cache compartibility for images under new compression 
+refixing styles and ios safe area
 
 moving maps to mapbox
 moving places autocomplete to native geocoder
@@ -26,7 +27,28 @@ stopping old notifications
 
 deploying the new dashboard
 
-inga you are a go getter
+achiving brodcasts messages
+saving crdit cards
 
-manje god works in unexpected ways ndaona watengerwawo yako
- soon you realise it
+admin statues tracking latest on top
+
+promotion banners to reditect into merchant
+
+reflecting rates used in the admin
+
+adding and seperation of commission on each products
+toggling currency at every page showing totals 
+update version full page prompt 
+
+move stripe relay server from 000webhost to firebase functions
+include extra detail eg email name cell to stripe payment details
+
+move twillio relay server from 000webhost to firebase functions
+try twillo alternatives for otp like auth0 
+seperation of credits between currencies
+
+showing driver order history
+country code flags not showing at otp
+diagnostics logs
+
+menu page horizontal scroll to snap into the right section below

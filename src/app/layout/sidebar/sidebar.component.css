@@ -1,11 +1,29 @@
 .nav-link{
-    border:1px solid red;
+    /* border:1px solid red; */
     height: 56px;
     width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     cursor: pointer;
     outline: none;
+    padding-left: 12px;
+    border-bottom: 1px solid #ddd;
 }
+
+.nav-link:hover{
+ background-color: #ddd;
+
+}
+
+.nav-link-label{
+    margin-left: 4px;
+}
+
+.nav-link:focus{
+    background-color: #ddd;
+   
+   }
+   
+
 

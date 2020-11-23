@@ -1,14 +1,5 @@
 {
-  "targets": {
-    "wlcam-e8a8b": {
-      "hosting": {
-        "white-label-admin": [
-          "wlcam-e8a8b"
-        ]
-      }
-    }
-  },
   "projects": {
-    "default": "koini-8dc79"
+    "default": "bikedelivery-819a5"
   }
 }

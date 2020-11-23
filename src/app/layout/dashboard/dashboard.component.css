@@ -1,0 +1,27 @@
+.dashboard-container{
+    /* border: 1px solid red; */
+    display: flex;
+    flex-wrap: wrap;
+    margin-top:12px
+    /* margin-left: 6px; */
+}
+
+.dash-item{
+    /* border: 1px solid fuchsia; */
+    flex-basis:49%;  
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-left: 6px;
+    margin-bottom: 6px;
+    box-shadow: 1px 1px 1px #888;
+
+}
+.dash-item-count{
+    font-weight: bold;
+    font-size: 2.1rem;
+    margin-bottom: 16px;
+}
+

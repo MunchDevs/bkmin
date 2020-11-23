@@ -1,14 +1,21 @@
 
+.section-list{
+    margin-left: 6px;
+}
 .section-list-item{
-    border: 1px solid fuchsia;
+    border: 1px solid #ddd;
     height: 70px;
     display: flex;
-    margin:8px 0px;
+    margin:8px 8px;
+    padding: 6px;
+    align-items: center;
+    cursor: pointer;
+
 }
 
 .section-avatar-container{
     width: 75px;
-    border: 1px solid teal;
+    /* border: 1px solid teal; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -26,6 +33,9 @@
 
 .section-list-details{
     flex-grow: 1;
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-left: 12px;
 }
 
 

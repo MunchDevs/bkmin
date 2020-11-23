@@ -21,7 +21,7 @@ export class AssignDriverComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    this.db.collection('drivers').valueChanges({idField:'id'})
+    this.db.collection('drivers',ref=> ref.where('occupied','==',false).where('active','==',true)).valueChanges({idField:'id'})
     .subscribe((d:any)=>{
        this.drivers = d;
        console.log(this.drivers)
@@ -29,8 +29,11 @@ export class AssignDriverComponent implements OnInit {
   }
 
   assignDriver(driver:Driver){
-    this.db.doc(`requests/${this.request_id}`).set({stage:'driver_assigned',driver_name:driver.name,driver_id:driver.id,driver_reg_no:driver.reg_no},{merge:true})
+    this.db.doc(`requests/${this.request_id}`).set({stage:'driver_assigned',driver:driver},{merge:true})
+    this.db.doc(`drivers/${driver.id}`).set({occupied:true},{merge:true})
     this.dialogRef.close()
   }
+
+
 
 }

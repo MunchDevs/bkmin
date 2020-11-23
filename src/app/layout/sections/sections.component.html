@@ -1,34 +1,30 @@
 <div class="page-title">
-   Mechant Sections
+  {{merchant_name}} / Sections
 </div>
 <div class="section-list" >
-    <div class="section-list-item" *ngFor="let section of sections ; index as i"  [routerLink]="['/menu']" routerLinkActive="router-link-active" (click)="viewProducts(i)">
+    <div class="section-list-item" *ngFor="let section of sections ; index as i" >
       <div class="section-avatar-container">
-        <div class="section-avatar">
+        <div class="section-avatar" (click)="viewProducts(i)">
           <img class="avatar" [src] = "'../../../../../../assets/svg-icons/'+ section.icon_name +'.svg'" />
         </div>
       </div>
-      <div class="section-list-details" >
+      <div class="section-list-details" (click)="viewProducts(i)" >
         <div>
-          {{section.name}}
+          {{section.name | titlecase}}
         </div>
-        <div>
-          Taril
-        </div>
-  
+ 
       </div>
   
       <div class="section-actions">
         <div class="section-action-btn">
-          <mat-icon>delete</mat-icon>
+          <mat-icon (click)="removeSection(i,section.name)">delete</mat-icon>
         </div>
       </div>
     </div>
   </div>
 
   <div class="add-fab-section">
-    <button mat-fab color="accent" [routerLink]="['/newsection']" routerLinkActive="router-link-active"  >
+    <button mat-fab color="accent" (click)="openDialog()">
         <mat-icon>plus_one</mat-icon>
-      </button>
-
+    </button>
   </div>

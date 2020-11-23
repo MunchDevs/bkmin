@@ -187,7 +187,8 @@ export class NewMerchantComponent implements OnInit {
             //save logo url
             this.logo_url = x
             //trigger banner upload
-            this.uploadBanner()
+            // this.uploadBanner()
+            this.save()
           })
         
         })
@@ -293,7 +294,7 @@ export class NewMerchantComponent implements OnInit {
           country:this.contactsForm.value.country,
           tags: this.profileForm.value.categories,
           sections: [],
-          banner_url: this.banner_url,
+          banner_url:'',//this.banner_url,
           street_address: this.contactsForm.value.street_address,
           open: true,
           distance:0,
@@ -352,7 +353,7 @@ export class NewMerchantComponent implements OnInit {
   logoCropped(event: ImageCroppedEvent) {
     console.log(event)
     this.croppedLogo = event.base64;
-  
+    console.log(this.croppedLogo)
   }
 
   bannerCropped(event: ImageCroppedEvent) {

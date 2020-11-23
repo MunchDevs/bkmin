@@ -1,3 +1,28 @@
-<div *ngFor="let driver of drivers" (click)="assignDriver(driver)">
- {{driver.name}} &nbsp; {{driver.reg_no}}
+<div *ngFor="let element of drivers" (click)="assignDriver(element)">
+
+<div class="user-item" style="cursor: pointer;"> 
+    <div class="user-item-avatar">
+        <img class="avatar" src="../../../assets/fpo_avatar.png">
+    </div>
+    <div class="user-item-details">
+       <div class="user-item-name">
+           {{element.name}} 
+        </div>
+        <div class="user-item-contact">
+           <div>
+               <mat-icon inline="true">call</mat-icon>
+               {{element.phone_number}}
+           </div>
+           <div>
+              Status :  <span *ngIf="element.occupied">Occupied</span> <span *ngIf="!element.occupied">Free</span>
+             
+           </div>
+        </div>     
+    </div>
+    <div class="user-item-actions">
+       <!-- <div class="user-action-action"> Active &nbsp; <mat-checkbox [checked]="element.active"></mat-checkbox> &nbsp; </div>
+       <div class="user-action-action"  style="margin-bottom: 0px;">Remove  <mat-icon (click)="removeDriver(element.id, element.name)">delete</mat-icon></div> -->
+   </div>
+  
+ </div>
 </div>

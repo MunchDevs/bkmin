@@ -1,18 +1,23 @@
-.merchant-grid{
-    border: 1px solid gold;
+   .merchant-grid{
+    /* border: 1px solid gold; */
     display: flex;
     flex-wrap: wrap;
-    }
+    margin-left: 6px;
+ }
 
 
     
     .merchant-avatar-container{
-        width: 75px;
-        border: 1px solid teal;
+        width: 85px;
+        /* border: 1px solid teal; */
         display: flex;
         justify-content: center;
         align-items: center;
+        margin-top: 4px;
+       
     }
+
+
     
     .merchant-avatar{
         height: 62px;
@@ -22,6 +27,7 @@
         align-items: center;
         justify-content: center;
         border: 2px solid gray;
+        cursor: pointer;
     }
 
     
@@ -40,7 +46,7 @@
         align-items: center;
         justify-content: center;
         height: 100%;
-        border: 1px solid yellowgreen;
+        /* border: 1px solid yellowgreen; */
     }
     
  
@@ -55,19 +61,45 @@
  
  }
  .merchant-grid-left-item{
-    border: 2px solid gold;
+    border: 2px solid #ddd;
     margin-right: 2px;
+    position: relative;
+ }
+
+ .edit-action{
+    position: absolute;
+    bottom:0;
+    left:0;
+    cursor: pointer;
+ }
+
+.close-action{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    cursor: pointer;  
  }
 
  .merchant-grid-right-item{
-    border: 2px solid blue;
+    border: 2px solid #ddd;
     margin-left: 2px;
-    
+    position: relative;
  }
       
  .merchant-grid-details{
-    border: 1px solid thistle;
+    /* border: 1px solid thistle; */
+    margin-top: 8px;
     width: 100%;
     flex-grow: 1;
     text-align: center;
+    cursor: pointer;
   }
+
+  .merchant-title{
+     font-size: 1.2rem;
+     font-weight: bold;
+  }
+  .merchant-address{
+     font-size: 0.7rem;
+  }
+

@@ -1,4 +1,4 @@
- <h2 class="section-header">Invited Users</h2>
+ <h2 *ngIf="invitations_count > 0" class="section-header">Invited Users</h2>
  <table mat-table [dataSource]="invitaitions_dataSource" class="mat-elevation-z0">
     <!-- Name Column -->
     <ng-container matColumnDef="name">

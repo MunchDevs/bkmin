@@ -1,3 +1,10 @@
+<div class="page-action-header">
+    <div class="page-title">
+       Settings
+    </div>
+ 
+      
+</div>
 <mat-tab-group mat-align-tabs="center">
     <mat-tab label="Promotions">
         <div class="list-table-section">
@@ -37,9 +44,38 @@
         </div>
     </mat-tab>
     <mat-tab label="Delivery">
+        <div class="delivery-charges">
+            <h2>Delivery Charges</h2>
+            <div class="delivery-charge">
+                <div>
+                    <b>From</b>
+                </div>
+                <div>
+                    <b>To</b>
+                </div>
+                <div>
+                   <b>Charge</b>
+                </div>
+            </div>
+            <div class="delivery-charge" *ngFor="let tier of tiers">
+                <div>
+                    {{tier.min}}Km
+                </div>
+                <div>
+                    {{tier.max}}Km
+                </div>
+                <div>
+                    {{tier.charge | currency}}
+                </div>
+            </div>
+            <div>
+              Beyound Max distance tier <b>{{ extra_tier | currency }}</b> per Km 
+            </div>
+        </div>
+        <div>
+            <h2>Delivery Outsourcing</h2>
+        </div>
         
-        <h2>Delivery Charges</h2>
-        <h2>Delivery Outsourcing</h2>
     </mat-tab>
 </mat-tab-group>
 

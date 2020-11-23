@@ -1,6 +1,6 @@
-.upload-section-logo{
-    width: 200px;
-    height: 200px;
+/* .upload-section-logo{
+    width: 300px;
+    height: 300px;
     background-color: #ccc;
     display: flex;
     flex-direction: column;
@@ -9,8 +9,8 @@
     margin: 2px;
 }
 .image-edit-section{
-    width: 100%;
-    height: 200px;
+    width: 300px;
+    height: 300px;
     background-color: #ccc;
     display: flex;
     flex-direction: column;
@@ -38,9 +38,7 @@
     display: flex;
 
 }
-.image-edit-section{
-    width: 30%;
-}
+
 
 .item-name-field{
     font-size: 1.5rem;
@@ -57,31 +55,71 @@
     align-items: center;
 }
 
-.addon-section{
+.addons-section{
     border: 1px solid lightcoral;
     display: flex;
-    margin-left: 8px;
+    margin-left: 12px;
+}
+.addon-item-section{
+    border: 1px solid crimson;
+    width: 100%;
+    padding-right: 12px;
 }
 .addon-header{
   background-color: lightcyan;
   display: flex;
   align-items: center;
   height: 44px;
- 
+  width: 100%; 
 }
-.addon-prices-section{
-    border: 1px solid green;
-    display: flex;
-    margin-left: 16px;
-  height: 44px;
-    align-items: center;
-}
+
 .name-field{
     flex-grow: 1;
     margin-right: 6px;
+    width: 100%;
 }
 
 .input-field{
-    font-size: 0.7rem;
+    font-size: 0.9rem;
     margin: 6px;
 }
+.size-price-item{
+    border: 1px solid crimson;
+    display: flex;
+    align-items: flex-end;
+    height: 44px;
+}
+
+.addon-prices-section{
+    border: 3px solid green;
+    display: flex;
+    margin-left: 16px;
+   flex-wrap: wrap;
+    align-items: center;
+    
+}
+.addon-size-price-item{
+    border: 1px solid crimson;
+    display: flex;
+    align-items: flex-end;
+    height: 44px;
+}
+
+.size-price-field{
+    position: relative;
+    bottom: -10px;
+}
+
+.ico-btn{
+    display: flex;
+    align-items: center;
+}
+.preference-item-container{
+    display: flex;
+    align-items: center;
+}
+.preference-item{
+    display:flex;
+
+}
+ */

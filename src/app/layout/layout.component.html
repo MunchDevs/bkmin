@@ -8,10 +8,10 @@
             <div *ngIf="on_mobile_view" class="sidenav-close">
                 <mat-icon (click)="sidenav.toggle()">close</mat-icon>
             </div>
-            <img class="sidebar-logo" src="../../assets/logos/pamugoti_logo.jpeg">
+            <img class="sidebar-logo" src="../../assets/logos/logo.png">
         </div>
         <div class="sidenav-bottom">
-
+            <div style="flex-grow: 1;"></div>
             <app-sidebar (nav_selected)="on_mobile_view? sidenav.toggle():false"></app-sidebar>
         </div>
     </mat-sidenav>
@@ -39,7 +39,7 @@
                 </span>
               </mat-form-field>
 
-              <div *ngIf="!search_mode " class="toolbar-title" style="flex: 1 1 auto;">My App</div>
+              <div *ngIf="!search_mode " class="toolbar-title" style="flex: 1 1 auto;">Bike Delivery</div>
 
        
                <mat-icon  *ngIf="on_searchable_page && !search_mode" (click)="search_mode = true">search</mat-icon>
@@ -48,6 +48,16 @@
                 <mat-icon  *ngIf="!search_mode" mat-button [matMenuTriggerFor]="menu">more_vert</mat-icon>
            
             <mat-menu #menu="matMenu">
+                <div class="profile">
+                    <img class="avatar" src="../../../assets/fpo_avatar.png">
+
+                </div>
+                <div class="profile-details">
+                    <div style="font-size: 1.1rem;">{{user?.name}}</div>
+                    <div style="font-size: 0.7rem;">{{user?.email}}</div>
+                </div>
+               
+                
             <button mat-menu-item (click)="logout()">Logout</button>
         
             </mat-menu>

@@ -1,1 +1,38 @@
-<p>dashboard works!</p>
+<div class="page-action-header">
+    <div class="page-title">
+       Dashboard
+    </div>
+    <mat-form-field floatLabel='never'>
+        <mat-label>Filter By Dates</mat-label>
+        <mat-date-range-input [rangePicker]="picker">
+          <input matStartDate  (dateChange)="startDateSelect($event)"  placeholder="Start date">
+          <input matEndDate  (dateChange)="endDateSelect($event)"  placeholder="End date">
+        </mat-date-range-input>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker touchUi #picker></mat-date-range-picker>
+     </mat-form-field>
+      
+</div>
+
+<div class="dashboard-container">
+    <div class="dash-item">
+        <div class="dash-item-count">{{total_count}}</div>
+        <div class="dash-item-title">Total Orders</div>
+        <div class="dash-item-desc"></div>
+    </div>
+    <div class="dash-item">
+        <div class="dash-item-count">{{completed_count}}</div>
+        <div class="dash-item-title">Completed </div>
+        <div class="dash-item-desc"></div>
+    </div>
+    <div class="dash-item">
+        <div class="dash-item-count">{{cancelled_count}}</div>
+        <div class="dash-item-title">Cancelled</div>
+        <div class="dash-item-desc"></div>
+    </div>
+    <div class="dash-item">
+        <div class="dash-item-count">{{hanging_count}}</div>
+        <div class="dash-item-title">Hanging</div>
+        <div class="dash-item-desc"></div>
+    </div>
+</div>

@@ -31,7 +31,6 @@ export class EditMerchantComponent implements OnInit {
   
   profileForm: FormGroup;
   contactsForm: FormGroup;
-  operationsForm: FormGroup;
 
 
   imageChangedEvent: any = '';
@@ -60,18 +59,7 @@ export class EditMerchantComponent implements OnInit {
     console.log(this.merchant)
    }
 
-  uploadFile(event) { 
-    const file = event.target.files[0];
 
-    //Create file path using restaurant_name underscored
-    let name_array:[] = this.res_form.value.name.split(' ');
-    console.log(name_array) 
-    let name_joined = name_array.join("_")
-    console.log(name_joined)
-    const filePath = `${name_joined}/logo`;
-    console.log(filePath)
-    const task = this.storage.upload(filePath, file);
-  }
   isLinear = false;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
@@ -94,6 +82,10 @@ export class EditMerchantComponent implements OnInit {
       commission: [this.merchant.commission, [Validators.required]],
       about: [this.merchant.about]
     })
+
+    //fill in the images
+    this.croppedLogo = this.merchant.logo_url
+    // this.croppedBanner = this.merchant.banner_url
   
     //initial contacts
     this.contactsForm = this.fb.group({
@@ -109,7 +101,7 @@ export class EditMerchantComponent implements OnInit {
 
 
     //initializing operations form
-    this.operationsForm = this.fb.group({
+    this.bussiness_hours_form = this.fb.group({
       monday: this.fb.group({
         opens: [this.merchant.bussiness_hours.monday.opens, [Validators.required]],
         closes: [this.merchant.bussiness_hours.monday.closes, [Validators.required]]
@@ -159,7 +151,7 @@ export class EditMerchantComponent implements OnInit {
     const file =  this.getBlob(this.croppedLogo)//event.target.files[0];
     
     //Create file path using restaurant_name underscored
-    let res_name_array:[] = this.res_form.value.name.split(' ');
+    let res_name_array:[] = this.profileForm.value.name.split(' ');
     console.log(res_name_array) 
     let res_name_joined = res_name_array.join("_")
     console.log(res_name_joined)
@@ -184,7 +176,7 @@ export class EditMerchantComponent implements OnInit {
             //save logo url
             this.logo_url = x
             //trigger banner upload
-            this.uploadBanner()
+            this.save()
           })
         
         })
@@ -275,28 +267,41 @@ export class EditMerchantComponent implements OnInit {
 
 
   save() {
-    // let point = new firebase.firestore.GeoPoint(this.position.lat, this.position.lng);
-    // this.res_form.get('location').setValue(point);
-    // this.res_form.get('banner').setValue(this.banner_url);
-    // this.res_form.get('logo').setValue(this.logo_url);
-    // //if the email is succefully set for auth an undefined is returned otherwise the process
-    // //is not successful
-    // this.signUpGoogleAuth().then(x => {
+    if(!this.logo_url){
+      if(this.croppedLogo  === this.merchant.logo_url){
+        this.logo_url = this.merchant.logo_url
+      }else{
+        this.uploadLogo()
+        return
+      }
+     }
 
-    //   //send auth reset       
-    //   this.auth.sendPasswordResetEmail(this.res_form.get("email").value);
-    //   console.log(this.res_form.value);
-    //   this.db.collection('restaurants').add(this.res_form.value);
-    //   this.message = '';
-    //   this.initForms();
-    //   this.res_form.reset();
+    let merchant:Merchant = {
+      name: this.profileForm.value.name,
+      email:this.contactsForm.value.email, //added
+      contacts: this.contactsForm.value.contacts,  //modified
+      logo_url: this.logo_url,
+      bussiness_hours: this.bussiness_hours_form.value,
+      categories: this.merchant.categories,
+      location: [this.contactsForm.value.lng,this.contactsForm.value.lat],
+      commission:this.profileForm.value.commission,
+      about:this.profileForm.value.about,
+      motto: this.profileForm.value.motto,
+      city: this.contactsForm.value.city,
+      country:this.contactsForm.value.country,
+      tags:'',
+      sections: this.merchant.sections,
+      banner_url:'',//this.banner_url,
+      street_address: this.contactsForm.value.street_address,
+      open: this.merchant.open,
+      distance:0,
+      est_delivery_time: 0,
+      cdn_delivery:false,
+      timestamp:new Date().getTime() / 1000
+    }
 
-    // })
-    //   .catch(res => {
-    //     this.message = res.message;
-
-    //   });
-    // console.log(this.res_form.value)
+   console.log(merchant)
+   this.db.doc(`merchants/${this.merchant['id']}`).set(merchant,{merge:true})
   }
 
   //Profile Validators

@@ -51,7 +51,7 @@ export class MerchantsService {
      let idx = this.merchants.findIndex(x=>x.id === id)
      if(idx > -1){
       this.current_merchant = this.merchants[idx]
-      this.router.navigateByUrl(`merchants/${this.current_merchant.id}/sections`)
+      this.router.navigateByUrl(`merchants/${this.current_merchant['id']}/sections`)
      }
 
   }
@@ -61,7 +61,7 @@ export class MerchantsService {
     let idx = this.merchants.findIndex(x=>x.id === id)
     if(idx > -1){
      this.current_merchant = this.merchants[idx]
-     this.router.navigateByUrl(`merchants/${this.current_merchant.id}`)
+     this.router.navigateByUrl(`merchants/${this.current_merchant['id']}`)
     }
 
  }
@@ -69,13 +69,18 @@ export class MerchantsService {
   openSection(idx){
       this.current_section_index = idx
       this.current_section = this.current_merchant.sections[idx]
-      this.router.navigateByUrl(`merchants/${this.current_merchant.id}/sections/${idx}/products`)
+      this.router.navigateByUrl(`merchants/${this.current_merchant['id']}/sections/${idx}/products`)
   }
 
   openProduct(idx){
       this.current_product_index  = idx
       this.current_product = this.current_section.products[idx]
       this.router.navigateByUrl(`products/${idx}`)
+  }
+
+  removeSection(idx){
+      this.current_merchant.sections.splice(idx,1)
+      this.db.doc(`merchants/${this.current_merchant['id']}`).set(this.current_merchant,{merge:true})
   }
 
   

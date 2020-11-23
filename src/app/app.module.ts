@@ -6,7 +6,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LayoutComponent } from './layout/layout.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 // Material Modules
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -27,6 +26,10 @@ import { MatTableModule}  from '@angular/material/table';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatDatepickerModule,  } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatBadgeModule } from '@angular/material/badge';
+import { ClipboardModule } from '@angular/cdk/clipboard';
 
 //Angular Fire Modules
 import { AngularFireModule } from '@angular/fire';
@@ -62,6 +65,7 @@ import { InviteUserComponent } from './layout/invite-user/invite-user.component'
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { NewDriverComponent } from './new-driver/new-driver.component';
 import { EditMerchantComponent } from './layout/edit-merchant/edit-merchant.component';
+import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
@@ -69,7 +73,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
   signInOptions: [
 
     {
-      requireDisplayName: false,
+      requireDisplayName: true,
       provider: firebase.auth.EmailAuthProvider.PROVIDER_ID
     }
   ],
@@ -108,7 +112,8 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     InviteUserComponent,
     ConfirmDialogComponent,
     NewDriverComponent,
-    EditMerchantComponent
+    EditMerchantComponent,
+    UnauthorizedComponent
 
   ],
   imports: [
@@ -117,7 +122,6 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-   
     //Material Modules
     MatSidenavModule,
     MatButtonModule,
@@ -136,6 +140,10 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     MatDialogModule,
     MatMenuModule,
     MatPaginatorModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatBadgeModule,
+    ClipboardModule,
 
     //angular fire modules
     AngularFireModule.initializeApp(environment.firebase),

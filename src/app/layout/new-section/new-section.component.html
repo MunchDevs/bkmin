@@ -1,48 +1,40 @@
-<!-- <div class="image-edit-section">
-    <div  *ngIf="!imageCropping && !croppedimage" class="upload-section-image" (click)="fileInput1.click()">
-        <div class="upload-text">Upload image</div>
-    </div>
 
-    <img class="cropped-image"  [src]="croppedimage" *ngIf="!imageCropping && croppedimage" (click)="fileInput1.click()"/>
+<h1 mat-dialog-title>New Section</h1>
+<div mat-dialog-content>
 
-    <input #fileInput1 type="file" style="display:none;" (change)="imageChangeEvent($event)" />
-    <div style="width:100%; height: 200px;"  *ngIf="imageCropping">
-        <image-cropper
-        [imageChangedEvent]="imageChangedEvent"
-        [maintainAspectRatio]="true"
-        [aspectRatio]="2 / 1"
-        [resizeToWidth]="256"
-        format="png"
-        (imageCropped)="imageCropped($event)"
-        (imageLoaded)="imageLoaded()"
-        (cropperReady)="cropperReady()"
-        (loadImageFailed)="loadImageFailed()"
-        >
-      </image-cropper>
-    </div>
+<form [formGroup]="form">
+  <mat-form-field class="field-width">
+    <mat-label>Section Name </mat-label>
+    <input matInput placeholder="Section Name"  type="text" min="1" formControlName="name">
+  </mat-form-field>
 
-
-    <button mat-raised-button class="done-button" *ngIf="imageCropping" (click)="imageCropping=false">Done
-        <mat-icon>check</mat-icon>
-    </button>
-</div> -->
-
-<mat-form-field appearance="outline">
-    <mat-label>statuses</mat-label>
-    <mat-select>
-      <mat-option *ngFor="let icon of icons" [value]="icon.name">
-     <img class="section-select-icon" [src]="'../../../assets/svg-icons/'+ icon.image_url + '.svg'">   {{icon.name}} 
+  <mat-form-field>
+    <mat-label>Icon</mat-label>
+    <mat-select formControlName="icon_name">
+      <mat-option *ngFor="let icon of icons" [value]="icon.image_url">
+        <div style="display: flex;align-items: flex-start;">
+          <div><img class="section-select-icon" style="height: 24px;" [src]="'../../../assets/svg-icons/'+ icon.image_url + '.svg'"> </div>
+          <div>{{icon.name}} </div>
+        </div>
+      
       </mat-option>
     </mat-select>
   </mat-form-field>
 
-<mat-form-field class="field-width">
-    <mat-label>Section Name </mat-label>
-    
-    <input matInput placeholder="Section Name"  type="text"
-        min="1" >
-</mat-form-field>
+</form>
 
-<div class="footer">
-<button mat-flat-button color="accent" style="width: 100%;">Save</button>
+
+
 </div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancel</button>
+  <div style="flex:1 1 auto"></div>
+  <button [disabled]="form.invalid" mat-button mat-dialog-close (click)="saveSection()">Save</button>
+</div>
+
+
+
+
+
+
+
