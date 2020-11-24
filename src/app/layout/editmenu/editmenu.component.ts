@@ -32,6 +32,7 @@ export class EditmenuComponent implements OnInit {
   imageCropping: boolean = false;
   product
   percent: number;
+  select_options = ['multiple','single']
   constructor(private _location: Location,private fdb:AngularFirestore,private merchants_service:MerchantsService,private fb:FormBuilder,private storage: AngularFireStorage) { 
     this.mechant_name =  this.merchants_service.current_merchant.name 
   }
@@ -93,7 +94,7 @@ export class EditmenuComponent implements OnInit {
       )
     });
 
-    (<FormArray>this.extrasForm.get('addon_categories')['controls'][cat_idx].get('addons')['controls']).push(
+    (<FormArray>this.extrasForm.get('addon_categories')['controls'][cat_idx].get('addons')).push(
       this.fb.group({
         name:['',[Validators.required]],
         prices:item_sizes
@@ -213,8 +214,8 @@ export class EditmenuComponent implements OnInit {
        addon_categories_form_array.push(     
          this.fb.group({
             name:[cat.name],
-            required:[false],
-            select_option:[''],
+            required:[cat.required],
+            select_option:[cat.select_option],
             addons:addons_form_array
       }))
    

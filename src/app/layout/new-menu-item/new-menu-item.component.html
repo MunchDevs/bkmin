@@ -109,11 +109,11 @@
                             </mat-error> -->
                         </mat-form-field>
             
-                        <mat-checkbox class="input-field">Required</mat-checkbox>
+                        <mat-checkbox formControlName="required" class="input-field">Required</mat-checkbox>
             
                         <mat-form-field class="input-field">
                                 <mat-label>Select Option</mat-label>
-                                <mat-select>
+                                <mat-select formControlName="select_option">
                                   <mat-option *ngFor="let option of select_options" [value]="option">
                                     {{option}}
                                   </mat-option>

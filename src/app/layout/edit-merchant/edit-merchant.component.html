@@ -116,6 +116,24 @@
                         City is required
                     </mat-error>
                 </mat-form-field>
+
+                <div>
+                                  
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Latitude</mat-label>
+                        <input matInput placeholder="Latitude" formControlName="lat" type="number">
+                        <mat-error *ngIf="city.errors?.required && city.touched">
+                            Latitude is required
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Longitude</mat-label>
+                        <input matInput placeholder="Longitude" formControlName="lng" type="number">
+                        <mat-error *ngIf="city.errors?.required && city.touched">
+                            Longitude is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
                    
               <div formArrayName="contacts" *ngFor="let contact of contactsForm.get('contacts')['controls']; index as i">  
                 <div [formGroupName]="i" style="display: flex; align-items: center;">

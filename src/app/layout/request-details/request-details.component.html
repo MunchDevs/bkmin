@@ -112,7 +112,7 @@
     </div>
     <div class="order-content">
         <div *ngFor="let merchant_item of merchants_items">
-            {{merchant_item.name}}
+           <b>{{merchant_item.name}}</b> 
             <div class="order-item-container"  *ngFor="let item of merchant_item.items">
                 <div class="order-item">
                     <div class="order-item-name">{{item.name}} &nbsp; {{item.size}}</div>
@@ -149,6 +149,48 @@
             Copy Request
         </button>
 
+      </div>
+      <div style="flex-grow: 1; margin-left: 6px;">
+        <b>Activity</b>
+          <table *ngIf="request.stage_changes">
+              <tr>
+                  <td>Created</td>
+                  <td>:</td>
+                  <td>{{request.timestamp * 1000 | date : 'shortTime'}}</td>
+                  
+              </tr>
+              <tr>
+                <td>Accepted</td>
+                <td>:</td>
+                <td>{{request.stage_changes.accepted.timestamp * 1000 | date : 'shortTime'}}</td>
+                <td>by  {{request.stage_changes.accepted.user_name }}</td>
+              </tr>
+              <tr *ngIf="request.stage_changes.driver_assigned.timestamp">
+                <td>driver_assigned</td>
+                <td>:</td>
+                <td>{{request.stage_changes.driver_assigned.timestamp * 1000 | date : 'shortTime'}}</td>
+                <td>by  {{request.stage_changes.driver_assigned.user_name }}</td>
+
+            </tr>
+            <tr *ngIf="request.stage_changes.delivery_started.timestamp">
+                <td>delivery_started</td>
+                <td>:</td>
+                <td>{{request.stage_changes.delivery_started.timestamp * 1000 | date : 'shortTime'}}</td>
+                <td>by  {{request.stage_changes.delivery_started.user_name }}</td>
+            </tr>
+            <tr *ngIf="request.stage_changes.cancelled.timestamp" >
+                <td>Cancelled</td>
+                <td>:</td>
+                <td>{{request.stage_changes.cancelled.timestamp * 1000 | date : 'shortTime'}}</td>
+                <td>by  {{request.stage_changes.cancelled.user_name }}</td>
+            </tr>
+            <tr *ngIf="request.stage_changes.complete.timestamp">
+                <td>Complete</td>
+                <td>:</td>
+                <td>{{request.stage_changes.complete.timestamp * 1000 | date : 'shortTime'}}</td>
+                <td>by  {{request.stage_changes.complete.user_name }}</td>
+            </tr>
+          </table>
       </div>
       <div class="order-totals-right">
 

@@ -134,7 +134,7 @@ export class NewMenuItemComponent implements OnInit {
       )
     });
 
-    (<FormArray>this.extrasForm.get('addon_categories')['controls'][cat_idx].get('addons')['controls']).push(
+    (<FormArray>this.extrasForm.get('addon_categories')['controls'][cat_idx].get('addons')).push(
       this.fb.group({
         name:['',[Validators.required]],
         prices:item_sizes
@@ -372,7 +372,7 @@ export class NewMenuItemComponent implements OnInit {
 
       this.merchants_service.current_merchant.sections[this.merchants_service.current_section_index].products.push(product);
       console.log(this.merchants_service.current_merchant)
-      // this.db.doc(`merchants/${this.merchants_service.current_merchant['id']}`).set(this.merchants_service.current_merchant,{merge:true})
+      this.db.doc(`merchants/${this.merchants_service.current_merchant['id']}`).set(this.merchants_service.current_merchant,{merge:true})
      
       this._location.back();
 
