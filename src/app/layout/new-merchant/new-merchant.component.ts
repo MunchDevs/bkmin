@@ -1,3 +1,4 @@
+import { NotificationService } from './../../notification.service';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { AngularFirestore } from '@angular/fire/firestore'
@@ -27,7 +28,7 @@ export class NewMerchantComponent implements OnInit {
   // }
 
   res_form: FormGroup;
-  
+
   profileForm: FormGroup;
   contactsForm: FormGroup;
   operationsForm: FormGroup;
@@ -51,16 +52,16 @@ export class NewMerchantComponent implements OnInit {
   bussiness_hours_form: FormGroup
   uploadPercent: any;
   downloadURL: any;
-  categories=['Fast Food','Traditional Food','Baked']
+  categories = ['Fast Food', 'Traditional Food', 'Baked']
 
-  constructor(private fb: FormBuilder, private db: AngularFirestore, private auth: AngularFireAuth, private storage: AngularFireStorage) { }
+  constructor(private fb: FormBuilder, private db: AngularFirestore, private auth: AngularFireAuth, private storage: AngularFireStorage, private notificationService: NotificationService) { }
 
-  uploadFile(event) { 
+  uploadFile(event) {
     const file = event.target.files[0];
 
     //Create file path using restaurant_name underscored
-    let name_array:[] = this.res_form.value.name.split(' ');
-    console.log(name_array) 
+    let name_array: [] = this.res_form.value.name.split(' ');
+    console.log(name_array)
     let name_joined = name_array.join("_")
     console.log(name_joined)
     const filePath = `${name_joined}/logo`;
@@ -95,17 +96,17 @@ export class NewMerchantComponent implements OnInit {
   initForms() {
     //initialize profile form
     this.profileForm = this.fb.group({
-      name: ['', [Validators.required]],  
+      name: ['', [Validators.required]],
       motto: [''],
       banner_url: [''],
       logo_url: [''],
-      default_password:['', [Validators.required,Validators.minLength(6)]],
+      default_password: ['', [Validators.required, Validators.minLength(6)]],
       commission: ['', [Validators.required]],
-      categories:[[],[Validators.required]],
+      categories: [[], [Validators.required]],
       about: [''],
-      open:[true]
+      open: [true]
     })
-  
+
     //initial contacts
     this.contactsForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -113,8 +114,8 @@ export class NewMerchantComponent implements OnInit {
       city: ['', [Validators.required]],
       country: ['Zimbabwe', [Validators.required]],
       location: [''],
-      lng:['', [Validators.required]],
-      lat:['', [Validators.required]],
+      lng: ['', [Validators.required]],
+      lat: ['', [Validators.required]],
       contacts: new FormArray([
         this.fb.group({
           contact_name: ['', Validators.required],
@@ -155,15 +156,15 @@ export class NewMerchantComponent implements OnInit {
         closes: ['', [Validators.required]]
       })
     })
-    
+
   }
 
-  uploadLogo() { 
-    const file =  this.getBlob(this.croppedLogo)//event.target.files[0];
-    
+  uploadLogo() {
+    const file = this.getBlob(this.croppedLogo)//event.target.files[0];
+
     //Create file path using restaurant_name underscored
-    let res_name_array:[] = this.profileForm.value.name.split(' ');
-    console.log(res_name_array) 
+    let res_name_array: [] = this.profileForm.value.name.split(' ');
+    console.log(res_name_array)
     let res_name_joined = res_name_array.join("_")
     console.log(res_name_joined)
     const filePath = `${res_name_joined}/logo`;
@@ -176,32 +177,37 @@ export class NewMerchantComponent implements OnInit {
     this.uploadPercent = task.percentageChanges()
 
     //get the download url
- 
+
     //get notified when the download URL is available
     task.snapshotChanges().pipe(
-        finalize(() =>
-        { 
-          this.downloadURL = fileRef.getDownloadURL()
-          .subscribe(x=>{
+      finalize(() => {
+        this.downloadURL = fileRef.getDownloadURL()
+          .subscribe(x => {
             console.log(x)
             //save logo url
             this.logo_url = x
             //trigger banner upload
             // this.uploadBanner()
-            this.save()
+          }, err => {
+            this.notificationService.failure("Error occurred trying to upload image")
           })
-        
-        })
-     )
-    .subscribe()
+
+
+      })
+    )
+      .subscribe(() => {
+        this.save()
+      }, (error) => {
+        this.notificationService.failure("Error occurred trying to upload image" + error.message)
+      })
   }
 
-  uploadBanner() { 
-    const file =  this.getBlob(this.croppedBanner)//event.target.files[0];
-    
+  uploadBanner() {
+    const file = this.getBlob(this.croppedBanner)//event.target.files[0];
+
     //Create file path using restaurant_name underscored
-    let res_name_array:[] = this.profileForm.value.name.split(' ');
-    console.log(res_name_array) 
+    let res_name_array: [] = this.profileForm.value.name.split(' ');
+    console.log(res_name_array)
     let res_name_joined = res_name_array.join("_")
     console.log(res_name_joined)
     const filePath = `${res_name_joined}/banner`;
@@ -214,22 +220,21 @@ export class NewMerchantComponent implements OnInit {
     this.uploadPercent = task.percentageChanges()
 
     //get the download url
- 
+
     //get notified when the download URL is available
     task.snapshotChanges().pipe(
-        finalize(() =>
-        { 
-          this.downloadURL = fileRef.getDownloadURL()
-          .subscribe(x=>{
+      finalize(() => {
+        this.downloadURL = fileRef.getDownloadURL()
+          .subscribe(x => {
             console.log(x)
             //save banner url
             this.banner_url = x
             this.save()
           })
-        
-        })
-     )
-    .subscribe()
+
+      })
+    )
+      .subscribe()
   }
 
   pushContact() {
@@ -240,7 +245,7 @@ export class NewMerchantComponent implements OnInit {
       })
     )
   }
-  
+
   removeContact(i) {
     (<FormArray>this.contactsForm.get('contacts')).removeAt(i)
   }
@@ -267,49 +272,53 @@ export class NewMerchantComponent implements OnInit {
 
 
 
-  submit(){
+  submit() {
     this.uploadLogo();
   }
 
 
   save() {
 
-    this.auth.createUserWithEmailAndPassword(this.contactsForm.value.email,this.profileForm.value.default_password).then(x=>{
-        // console.log("Forms Data : ",this.profileForm.value)
-        // console.log("Forms Data : ",this.contactsForm.value)
-        // console.log("Forms Data : ",this.bussiness_hours_form.value)
+    this.auth.createUserWithEmailAndPassword(this.contactsForm.value.email, this.profileForm.value.default_password).then(x => {
+      // console.log("Forms Data : ",this.profileForm.value)
+      // console.log("Forms Data : ",this.contactsForm.value)
+      // console.log("Forms Data : ",this.bussiness_hours_form.value)
 
-        let merchant:Merchant = {
-          name: this.profileForm.value.name,
-          email:this.contactsForm.value.email, //added
-          contacts: this.contactsForm.value.contacts,  //modified
-          logo_url: this.logo_url,
-          bussiness_hours: this.bussiness_hours_form.value,
-          categories: this.profileForm.value.categories,
-          location: [this.contactsForm.value.lng,this.contactsForm.value.lat],
-          commission:this.profileForm.value.commission,
-          about:this.profileForm.value.about,
-          motto: this.profileForm.value.motto,
-          city: this.contactsForm.value.city,
-          country:this.contactsForm.value.country,
-          tags: this.profileForm.value.categories,
-          sections: [],
-          banner_url:'',//this.banner_url,
-          street_address: this.contactsForm.value.street_address,
-          open: true,
-          distance:0,
-          est_delivery_time: 0,
-          cdn_delivery:false,
-          timestamp:new Date().getTime() / 1000
-        }
+      let merchant: Merchant = {
+        name: this.profileForm.value.name,
+        email: this.contactsForm.value.email, //added
+        contacts: this.contactsForm.value.contacts,  //modified
+        logo_url: this.logo_url,
+        bussiness_hours: this.bussiness_hours_form.value,
+        categories: this.profileForm.value.categories,
+        location: [this.contactsForm.value.lng, this.contactsForm.value.lat],
+        commission: this.profileForm.value.commission,
+        about: this.profileForm.value.about,
+        motto: this.profileForm.value.motto,
+        city: this.contactsForm.value.city,
+        country: this.contactsForm.value.country,
+        tags: this.profileForm.value.categories,
+        sections: [],
+        banner_url: '',//this.banner_url,
+        street_address: this.contactsForm.value.street_address,
+        open: true,
+        distance: 0,
+        est_delivery_time: 0,
+        cdn_delivery: false,
+        timestamp: new Date().getTime() / 1000
+      }
 
-       console.log(merchant)
+      console.log(merchant)
 
-       this.db.collection('merchants').add(merchant)
+      this.db.collection('merchants').add(merchant).then(() => {
+        this.notificationService.success(`${merchant.name} saved `)
+      }).catch(() => {
+        this.notificationService.failure('Oops something happened trying to save the merchant')
+      })
 
-    }).catch(error=>console.log(error.message))
-  
- 
+    }).catch((error) => { this.notificationService.failure(error.message) })
+
+
   }
 
   //Profile Validators
@@ -375,17 +384,17 @@ export class NewMerchantComponent implements OnInit {
 
       let byteNumbers = new Array(slice.length);
       for (let i = 0; i < slice.length; i++) {
-          byteNumbers[i] = slice.charCodeAt(i);
+        byteNumbers[i] = slice.charCodeAt(i);
       }
 
       let byteArray = new Uint8Array(byteNumbers);
       byteArrays.push(byteArray);
     }
 
-    let blob = new Blob(byteArrays, {type: contentType});
+    let blob = new Blob(byteArrays, { type: contentType });
     console.log('returning to blog')
     return blob;
-}
+  }
 
 
   imageLoaded() {

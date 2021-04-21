@@ -1,5 +1,4 @@
-.nav-link{
-    /* border:1px solid red; */
+.nav-link {
     height: 56px;
     width: 100%;
     display: flex;
@@ -8,22 +7,17 @@
     cursor: pointer;
     outline: none;
     padding-left: 12px;
-    border-bottom: 1px solid #ddd;
+    /* border-bottom: 1px solid #ddd; */
 }
 
-.nav-link:hover{
- background-color: #ddd;
-
+.nav-link:hover {
+    background-color: #ddd;
 }
 
-.nav-link-label{
+.nav-link-label {
     margin-left: 4px;
 }
 
-.nav-link:focus{
+.nav-link:focus {
     background-color: #ddd;
-   
-   }
-   
-
-
+}

@@ -9,27 +9,28 @@ import { MerchantsService } from './../../merchants.service';
 })
 export class MerchantsComponent implements OnInit {
   // private db = new FakeDB();
-  merchants = []
+  merchants = []//this.db.merchants
 
-  
-  constructor(private merchant_service:MerchantsService) {
-   }
+
+  constructor(private merchant_service: MerchantsService) {
+  }
 
   ngOnInit(): void {
-     this.merchant_service.db_merchants.subscribe(m=>{
-      if(m){
+    this.merchant_service.db_merchants.subscribe(m => {
+      if (m) {
         this.merchants = m
         console.log(m)
       }
 
     })
+    console.log(this.merchants)
   }
 
-  viewSections(id){
+  viewSections(id) {
     this.merchant_service.openMerchant(id)
   }
 
-  viewEdit(id){
+  viewEdit(id) {
     this.merchant_service.openEditMerchant(id)
   }
 

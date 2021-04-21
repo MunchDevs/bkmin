@@ -13,26 +13,26 @@ import { SearchService } from 'src/app/search.service';
 })
 export class DriversComponent implements OnInit {
   displayedColumns: string[] = ['name'];
-  dataSource 
-  constructor(private search_service:SearchService,public dialog: MatDialog,private db:AngularFirestore) { }
+  dataSource
+  constructor(private search_service: SearchService, public dialog: MatDialog, private db: AngularFirestore) { }
 
   ngOnInit(): void {
-    this.db.collection(`drivers`).valueChanges({idField:'id'})
-    .subscribe(drivers=>{
-      this.dataSource = new MatTableDataSource(drivers)
-    })
+    this.db.collection(`drivers`).valueChanges({ idField: 'id' })
+      .subscribe(drivers => {
+        this.dataSource = new MatTableDataSource(drivers)
+      })
 
-    this.search_service.filter.subscribe(x=>{
+    this.search_service.filter.subscribe(x => {
       // console.log(x)
-      if(x){
-        if(x.target === '/drivers'){
+      if (x) {
+        if (x.target === '/drivers') {
           this.filter(x.filterValue)
         }
       }
-    
+
     })
 
-   
+
 
   }
 
@@ -40,25 +40,25 @@ export class DriversComponent implements OnInit {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '250px',
       data: {
-        title:`Confirm Deletion!`,
-        message:`Are you sure want to delete ${user_name} from drivers`,
-     }
+        title: `Confirm Deletion!`,
+        message: `Are you sure want to delete ${user_name} from drivers`,
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       console.log(result)
-      if(result){
-        console.log('removing driver',user_id)
-      this.db.doc(`drivers/${user_id}`).delete()
+      if (result) {
+        console.log('removing driver', user_id)
+        this.db.doc(`drivers/${user_id}`).delete()
       }
     });
   }
 
 
   openDialog(): void {
-    const dialogRef = this.dialog.open( NewDriverComponent, {
-      width: '250px',
+    const dialogRef = this.dialog.open(NewDriverComponent, {
+      width: '400px',
       data: {}
     });
 

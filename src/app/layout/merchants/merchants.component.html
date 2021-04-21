@@ -1,42 +1,33 @@
 <div class="page-action-header">
-  <div class="page-title">
-     Merchants
-  </div>
-
-    
-</div>
-<div class="merchant-grid" *ngIf="merchants" >
-    <div class="merchant-grid-item" *ngFor="let merchant of merchants; index as i" [ngClass]="i%2? 'merchant-grid-right-item' : 'merchant-grid-left-item'"  >
-      <mat-icon class="edit-action" (click)="viewEdit(merchant.id)">edit</mat-icon>
-      <mat-slide-toggle class="close-action"></mat-slide-toggle>
-
-      <div class="merchant-avatar-container">
-        <div class="merchant-avatar" (click)="viewSections(merchant.id)">
-          <img class="avatar" [src]="merchant.logo_url" />
-        </div>
-      </div>
-      <div class="merchant-grid-details"  (click)="viewSections(merchant.id)">
-        <div class="merchant-title">
-          {{merchant.name}}
-        </div>
-        <div  class="merchant-address">
-           {{merchant.street_address}}
-        </div>
-  
-      </div>
-  
-      <div class="merchant-action">
-        <div class="merchant-action-btn">
-        
-          <ion-icon name="caret-back-circle-sharp"></ion-icon>
-        </div>
-      </div>
+    <div class="page-title">
+        Merchants
     </div>
-  </div>
+</div>
 
-  <div class="add-fab-section">
-    <button mat-fab color="accent" [routerLink]="['/newmerchant']" routerLinkActive="router-link-active" >
-        <mat-icon>plus_one</mat-icon>
-      </button>
-  </div>
+<div class="merchant" *ngFor="let merchant of merchants; index as i">
+    <div class="merchant-logo" (click)="viewSections(merchant.id)">
+        <img [src]="merchant.logo_url" />
+    </div>
+    <div class="merchant-details" (click)="viewSections(merchant.id)">
+        <div class="merchant-title">
+            {{merchant.name}}
+        </div>
+        <div class="merchant-address">
+            {{merchant.street_address}}
+        </div>
 
+    </div>
+    <div class="merchant-action">
+        <mat-slide-toggle class="close-action"></mat-slide-toggle>
+
+        <button mat-icon-button (click)="viewEdit(merchant.id)">
+      <mat-icon>edit</mat-icon>
+    </button>
+    </div>
+</div>
+
+<div class="add-fab-section">
+    <button mat-fab color="accent" [routerLink]="['/newmerchant']" routerLinkActive="router-link-active">
+    <mat-icon>plus_one</mat-icon>
+  </button>
+</div>
